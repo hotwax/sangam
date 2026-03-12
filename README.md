@@ -91,6 +91,15 @@ Follow the instructions provided by your specific AI extension (e.g., Continue, 
    shopify theme dev
    ```
 
+## 6. Theme Customization & Skills
+
+To help both humans and AI agents customize complex features like BOPIS (Buy Online, Pick Up In Store), we have provided specialized guides:
+
+- **BOPIS Customization Guide**: See [docs/BOPIS_CUSTOMIZATION.md](file:///Users/adityapatel/Documents/GitHub/sangam/docs/BOPIS_CUSTOMIZATION.md) for a human-friendly overview of how to change the look and feel of the pickup button and modal.
+- **AI Agent Skills**: We have defined localized "Skills" for AI assistants like Antigravity to ensure they follow theme-specific best practices:
+  - [BOPIS Customizer](file:///Users/adityapatel/Documents/GitHub/sangam/.agents/skills/bopis-customizer/SKILL.md): For modifying the store pickup experience.
+  - [Skill Creator](file:///Users/adityapatel/Documents/GitHub/sangam/.agents/skills/skill-creator/SKILL.md): A meta-skill to help agents create NEW skills following the `agentskills.io` spec.
+
 ## Resources
 - [Shopify Theme Documentation](https://shopify.dev/docs/themes)
 - [Liquid Reference](https://shopify.dev/docs/api/liquid)
