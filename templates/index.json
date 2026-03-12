@@ -470,7 +470,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Experience HotWax's BOPIS</h2>",
+            "text": "<h3>Experience HotWax's BOPIS</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
