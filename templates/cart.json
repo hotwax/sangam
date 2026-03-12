@@ -111,7 +111,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h3>You may also explore</h3>",
+                "text": "<h4>You may also explore</h4>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
