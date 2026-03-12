@@ -1,3 +1,4 @@
+// @ts-nocheck
 (function () {
     let jQueryBopis, $location, backdrop, currentProduct, body, homeStore, stores, userHomeStore, otherStores, latlon, userLocationPoint, userZipCode, facility, shippingInventory, hcHomeStoreZipCode;
   
@@ -973,10 +974,10 @@
         // checking if the number of stores is greater then 0 then creating a payload to check inventory
         if (storeInformation && storeInformation.response && storeInformation.response.numFound > 0) {
   
-            let storeCodes = storeInformation.response.docs.filter(store => store["pickup_pref"] === "true").map((store) => {
+            let storeCodes = storeInformation.response.docs.filter(store => {
                 store.timings = getStoreTiming(store);
-                return store.storeCode;
-            })
+                return store["pickup_pref"] === "true"
+            }).map((store) => store.storeCode)
   
             // passing the facilityId as an array in the payload
             let payload = {"sku" : sku, "facilityIds": storeCodes};
@@ -1000,8 +1001,6 @@
                 result = storeInformation.response.docs
             }
         }
-
-        console.log('result', result)
 
         displayStoreInformation(result)
         displayHomeStoreInformation(storeInformation.response.docs)

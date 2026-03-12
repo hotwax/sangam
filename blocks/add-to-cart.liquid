@@ -9,7 +9,7 @@
 {%- enddoc -%}
 
 {% liquid
-  assign class = 'add-to-cart-button ' | append: block.settings.style_class
+  assign class = 'hc_preorderButton add-to-cart-button ' | append: block.settings.style_class
   assign id = 'BuyButtons-ProductSubmitButton-' | append: block.id
 %}
 
@@ -26,6 +26,11 @@
     data_testid: 'standalone-add-to-cart'
   %}
 </span>
+
+<input type="hidden" class="hc_inventory" value='{{ product.selected_or_first_available_variant.inventory_quantity }}'>
+<p id="hc_preordershipsfrom" style="visibility: hidden;">Expected Ship Date <span /></p>
+<input type="hidden" class="hc_preorder_metafield" value='{{ product.selected_or_first_available_variant.metafields.HC_PREORDER | json }}'>
+
 
 {% schema %}
 {

@@ -6,6 +6,10 @@ p {
     margin: 0;
 }
 
+.hc-bopis-store-pin, #hc-bopis-store-pin {
+    padding-left: 10px;
+}
+
 .hc-bopis-modal, .hc-edd-modal {
     display: none;
     position: fixed;
@@ -33,6 +37,7 @@ p {
     width: 80%;
     height: 400px;
     overflow: auto;
+    border-radius: 10px;
 }
 
 .hc-edd-content {
@@ -183,6 +188,7 @@ p {
     padding: 20px;
     max-height: 400px;
     overflow: auto;
+    border-radius: 10px;
 }
 
 .hc-store-dropdown-title {
