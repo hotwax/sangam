@@ -168,20 +168,7 @@
                 {%- for filter in filters -%}
                   {% case filter.type %}
                     {% when 'price_range' %}
-                      {%- liquid
-                        if filter.min_value.value != null or filter.max_value.value != null
-                          assign total_active_values = total_active_values | plus: 1
-                          assign is_active = true
-                        endif
-
-                        if block_settings.filter_style != 'vertical'
-                          assign should_render_clear = true
-                        else
-                          assign should_render_clear = false
-                        endif
-
-                        render 'price-filter', filter: filter, filter_style: block_settings.filter_style, should_render_clear: should_render_clear
-                      -%}
+                      {% comment %}Price filter removed{% endcomment %}
                     {% else %}
                       {% liquid
                         if filter.active_values.size > 0
@@ -435,14 +422,7 @@
                 {%- for filter in filters -%}
                   {% case filter.type %}
                     {% when 'price_range' %}
-                      {%- liquid
-                        if filter.min_value.value != null or filter.max_value.value != null
-                          assign total_active_values = total_active_values | plus: 1
-                          assign is_active = true
-                        endif
-
-                        render 'price-filter', filter: filter, filter_style: 'vertical', should_render_clear: false
-                      -%}
+                      {% comment %}Price filter removed{% endcomment %}
                     {% else %}
                       {% liquid
                         if filter.active_values.size > 0
