@@ -1433,6 +1433,12 @@
   {
     "name": "t:names.badges",
     "settings": [
+     {
+    "type": "checkbox",
+    "id": "show_sale_badge",
+    "label": "Show sale badges",
+    "default": true
+      },
       {
         "type": "select",
         "id": "badge_position",
