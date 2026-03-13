@@ -95,7 +95,10 @@
 
             let { productType, estimatedDeliveryDate } = getProductTypeAndEstimatedDate();
 
-            if (!productType) return;
+            if (!productType) {
+                hcpreorderShipsFrom.hide();
+                return;
+            }
 
             // if the date is of past then making it empty
             let now = new Date();
