@@ -427,7 +427,7 @@
             }
   
             if (!store.pickup_pref) {
-                $storeDropdownCard.append(jQueryBopis('<h4 style="margin-top: 10px; text-align: start; font-size: .8em;" tabindex="0">Store Pickup Unavailable</h4>'));
+                $storeDropdownCard.append(jQueryBopis('<h4 style="margin-top: 10px; text-align: start; font-size: .8em;" tabindex="0">Pickup available only at event locations</h4>'));
             }
   
             let $lineBreak = jQueryBopis('<hr class="hc-horizontal-rule"/>')
