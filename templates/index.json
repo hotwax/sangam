@@ -798,7 +798,7 @@
                 "text_fEkDzc": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>See real-time availability at your selected \"My Store\" while you browse.</p>",
+                    "text": "<p>See real-time availability at your selected \"My Store\" while you browse</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -950,7 +950,7 @@
                 "text_AfD8kJ": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Add your favorite gift to the cart and place your pickup order.</p>",
+                    "text": "<p>Add your favorite gift to the cart and place your pickup order</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1102,7 +1102,7 @@
                 "text_k7ifbY": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>HotWax will send you an email when your order is ready.</p>",
+                    "text": "<p>HotWax will send you an email when your order is ready</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
