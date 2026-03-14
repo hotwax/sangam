@@ -252,7 +252,7 @@
             "text_a4wGRJ": {
               "type": "text",
               "settings": {
-                "text": "<p>Pick up your gift at our next event (NRF, Shoptalk). HotWax displays real-time inventory availability at pickup locations directly at the PDP.</p>",
+                "text": "<p>HotWax displays real-time inventory availability at pickup locations directly at the PDP.</p><p>Pick up your gift at our next retail event (Shoptalk, NRF).</p>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
