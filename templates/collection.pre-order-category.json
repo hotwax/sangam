@@ -105,7 +105,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>You are currently viewing products available on Pre-Order, with arrival dates at Shoptalk. Pre-Order eligibility is checked by HotWax in real-time.</p>",
+            "text": "<p>Pre-Order eligibility is checked by HotWax in real-time. You are currently viewing products available on Pre-Order, with arrival dates at Shoptalk.</p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
