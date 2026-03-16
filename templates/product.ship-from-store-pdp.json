@@ -689,7 +689,7 @@
                 "text_dtr3XX": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Set daily order caps to prevent store teams from being overloaded during peak periods.</p>",
+                    "text": "<p>Set daily order caps to prevent store teams from being overloaded during peak periods. </p><p>You can also deprioritize stores with heavy walk-in traffic, such as mall locations, to protect the in-store experience.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
