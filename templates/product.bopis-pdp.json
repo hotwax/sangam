@@ -267,7 +267,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>HotWax lets you sorts pickup locations by ZIP code and choose if locations where the product is currently out of stock should also be displayed.</p>",
+                "text": "<p>HotWax lets you sort pickup locations by ZIP code and choose if locations where the product is currently out of stock should also be displayed.</p>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
