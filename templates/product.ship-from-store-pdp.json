@@ -491,7 +491,7 @@
                 "text_MpGFxq": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>HotWax intelligent order routing routes online orders to the best fulfillment location based on factors such as shipping method, promised SLA, proximity to the customer's address, inventory levels, fulfillment capacity and more.</p><p></p><p>HotWax’s order routing automatically selects the best fulfillment location for each order. The routing engine evaluates factors such as proximity to the customer, promised SLA, inventory levels, and fulfillment capacity to decide where the order should be fulfilled.<br/><br/>Retailers can define routing rules to prioritize certain locations, such as warehouses first and stores as backup, or nearby stores for same-day and next-day deliveries. If the preferred location cannot fulfill the order, the routing engine automatically checks the next best location to keep orders moving without manual intervention.<br/><br/>Routing can also control order splits. Orders are fulfilled from a single location whenever possible, and are only split when necessary to meet delivery promises or when no single location has all items available.</p>",
+                    "text": "<p>HotWax intelligent order routing routes online orders to the best fulfillment location based on factors such as shipping method, promised SLA, proximity to the customer's address, inventory levels, fulfillment capacity and more.</p><p></p><p>HotWax’s order routing automatically selects the best fulfillment location for each order. The routing engine evaluates factors such as proximity to the customer, promised SLA, inventory levels, and fulfillment capacity to decide where the order should be fulfilled.<br/><br/>Retailers can define routing rules to prioritize certain locations, such as warehouses first and stores as backup, or nearby stores for same-day and next-day deliveries. If the preferred location cannot fulfill the order, the routing engine automatically checks the next best location to keep orders moving without manual intervention.<br/><br/>Routing can also control order splits. Orders are fulfilled from a single location whenever possible, and are only split when necessary to meet delivery promises.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -531,7 +531,7 @@
                 "text_pq9dpw": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Split orders only when needed. If one location cannot fulfill every item, HotWax can split the order to help meet same-day or next-day delivery promises. You can also set a minimum shipment value, so low-value partial shipments are avoided and delivery costs stay under control.</p>",
+                    "text": "<p>Split orders only when needed. For same-day or next-day delivery promises, HotWax's routing engine intelligently splits orders across multiple locations if a single location cannot fulfill the entire order.</p><p>To protect your margins, you can set a minimum shipment threshold value. This means split shipments are avoided for low-value order items, keeping delivery costs firmly under control while still delivering a premier customer experience.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -556,6 +556,86 @@
               },
               "block_order": [
                 "text_pq9dpw"
+              ]
+            },
+            "accordion_row_FprLLA": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Product based routing",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_EBLnti": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Automatically route order items with custom fulfillment steps like engraving or alterations from locations that support those services.</p>",
+                    "width": "100%",
+                    "max_width": "none",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_EBLnti"
+              ]
+            },
+            "accordion_row_yRd3HR": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Handle new launches",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_C9krYU": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>HotWax's configurable routing engine protects the in-store experience during major product drops. By initially routing online orders for high-demand items strictly to warehouses, online orders won't wipe out store inventory. Stores are only used for fulfillment once demand stabilizes, so that walk-in customers find stocked shelves.</p>",
+                    "width": "100%",
+                    "max_width": "none",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_C9krYU"
               ]
             },
             "accordion_row_jRWGkc": {
@@ -727,6 +807,8 @@
             "accordion_row_RKbwKf",
             "accordion_row_UCwGEL",
             "accordion_row_gyAGix",
+            "accordion_row_FprLLA",
+            "accordion_row_yRd3HR",
             "accordion_row_jRWGkc",
             "accordion_row_6JgQaL",
             "accordion_row_iw4F3q",
