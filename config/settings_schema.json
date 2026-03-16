@@ -1433,7 +1433,7 @@
   {
     "name": "t:names.badges",
     "settings": [
-     {
+      {
         "type": "select",
         "id": "badge_position",
         "options": [
@@ -2282,6 +2282,17 @@
           }
         ],
         "default": "equal-width-buttons"
+      }
+    ]
+  },
+  {
+    "name": "t:names.hcHomeStore",
+    "settings": [
+      {
+        "type": "text",
+        "id": "home_store_event_locations",
+        "label": "List of event store ids(separated by comma, without spaces)",
+        "default": "NRF,COMMERCE_NEXT,ETAIL_PALM_SPRING,SHOPTALK_SPRING"
       }
     ]
   }

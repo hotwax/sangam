@@ -6,16 +6,23 @@
     const locationJSON = {
         "<facility-id-hotwax>": "<shopify-loation-id>"
     }
-    
+
+    function getLocations() {
+        const storeLocations = document.currentScript.dataset.eventlocations
+        return storeLocations.split(",").map(loc => loc.toUpperCase())
+    }
+
     // defining a global object having properties which let merchant configure some behavior
     this.bopisCustomConfig = {
         'enableCartRedirection': true,
         'searchProximity': 50, // the radius (in miles) in which the stores needs to be searched
         'searchInputPlaceholder': 'Search by zip code (50 mile radius)',
         'shippingMethods': ['Standard', '2 day', 'Overnight'],
-        'enableUpdatingFulfillmentLocation': false
-      };
-      
+        'enableUpdatingFulfillmentLocation': false,
+        'eventLocations': getLocations()
+    };
+
+
     let baseUrl = "https://notnaked-oms.hotwax.io"
     let maargUrl = "https://notnaked-maarg.hotwax.io"
 
@@ -823,47 +830,73 @@
                     <p class="hc-store-not-found"></p>
                 </div>
             </div>`);
-  
+
             // check if the element with class hc-bopis-button has button element in it then don't add button
             if (existingBopisButton.length == 0) {
                 let $btn = jQueryBopis('<button class="btn button hc-open-bopis-modal">Pick Up Today</button>');
                 bopisButton.append($btn);
             }
-  
+
             jQueryBopis("body").append($pickUpModal);
-  
+
             bopisButton.on('click', openBopisModal);
-  
+
             jQueryBopis(".hc-bopis-close").on('click', closeBopisModal);
-            jQueryBopis("body").on('click', function(event) {
+            jQueryBopis("body").on('click', function (event) {
                 if (event.target == jQueryBopis("#hc-bopis-modal")[0]) {
                     closeBopisModal();
-                  }
+                }
             })
-            
+
             jQueryBopis('#hc-bopis-store-pin').on('input', toggleClearIcon.bind(null, '#hc-bopis-form-pdp'));
             jQueryBopis("#hc-bopis-form-pdp .hc-close-icon").on('click', clearSearch.bind(null, '#hc-bopis-form-pdp'))
             jQueryBopis("#hc-bopis-form-pdp .hc-location-icon").on('click', handleAddToCartEvent.bind(null, true));
             jQueryBopis(".hc-bopis-pick-up-button").on('click', handleAddToCartEvent.bind(null, false));
-  
+
             handleAddToCartEvent();
-  
-        } else if(location.pathname.includes("/cart/")) {
+
+        } else if (location.pathname.includes("/cart/")) {
             // finding this property on cart page as some themes may display hidden properties on cart page
             jQueryBopis("[data-cart-item-property-name]:contains('pickupstore')").closest('li').hide();
         }
     }
-  
+
+    // Function helps in displaying the event stores always at the top
+    // Sort the stores on the basis of eventLocations value in bopisCustomConfig object
+    // If the searching is performed by location(latLng or zipCode), then the event stores are sorted by dist
+    // otherwise they are sorted by the list provided in the eventLocations value
+    // In all the cases, event locations will be displayed first in the list
+    function sortEventLocations(resp, payload) {
+        let eventStores = []
+        let otherStores = []
+        JSON.parse(JSON.stringify(resp)).filter((store) => {
+            if (bopisCustomConfig.eventLocations.includes(store.storeCode)) eventStores.push(store)
+            else otherStores.push(store)
+        })
+
+        if (payload.point) {
+            eventStores = eventStores.sort((a, b) => a.dist - b.dist)
+        } else {
+            for (let storeCode of bopisCustomConfig.eventLocations.reverse()) {
+                const index = eventStores.indexOf(eventStores.find((r) => r.storeCode == storeCode))
+                if (index > 0) {
+                    eventStores.unshift(eventStores.splice(index, 1)[0])
+                }
+            }
+        }
+        return [...eventStores, ...otherStores]
+    }
+
     function getStoreInformation() {
         const payload = {
             viewSize: 100,
             filters: ["storeType: RETAIL_STORE", "shopifyShop_id: 98255470958"]
         }
-  
+
         // fetching home store latLon from localStorage
         const homeStoreLatLon = localStorage.getItem('HC_CURRENT_STORE_LAT_LON');
-  
-        if(latlon) {
+
+        if (latlon) {
             payload["point"] = latlon
         } else if (homeStoreLatLon) {
             payload["point"] = homeStoreLatLon
@@ -882,6 +915,7 @@
                     'Content-Type': 'application/json'
                 },
                 success: function (res) {
+                    res.response.docs = sortEventLocations(res.response.docs, payload)
                     resolve(res)
                 },
                 error: function (err, textStatus) {
