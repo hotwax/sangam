@@ -2,9 +2,13 @@
 
 {% assign product = closest.product %}
 {% assign preOrderMetafield = product.metafields.HC_PREORDER | json %}
-{% if preOrderMetafield.PROMISE_DATE and preOrderMetafield.PROMISE_DATE.status == 'active' %}
+{% if preOrderMetafield.value and preOrderMetafield.value.status == 'active' %}
   {% assign isProductPreorderBackOrder = true %}
 {% endif %}
+
+<script>
+console.log('{{ preOrderMetafield }}');
+</script>
 
 {% capture children %}
   {% unless product == blank %}
