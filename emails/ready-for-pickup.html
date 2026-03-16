@@ -1,0 +1,32 @@
+<div><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">Pickup
+        Location</span></div>
+<div><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">{
+        { event.to_name|default: ""
+        }
+        }</span><br><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">{
+        { event.address1|default: ""
+        }
+        }</span><br><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">{
+        { event.city|default: ""
+        }
+        },
+        {
+        { event.state|default: ""
+        }
+        } {
+        { event.zip|default: ""
+        }
+        }</span><br><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">{
+        { event.country|default: ""
+        }
+        }</span><br><span
+        style="font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: 500; font-style: normal; font-size: 16px;">Map:
+        {
+        { event.map_url|default: ""
+        }
+        }</span></div>
