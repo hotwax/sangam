@@ -1,9 +1,11 @@
 
 
 {% assign product = closest.product %}
-{% assign preOrderMetafield = product.metafields.HC_PREORDER | json %}
-{% if preOrderMetafield.value and preOrderMetafield.value.status == 'active' %}
-  {% assign isProductPreorderBackOrder = true %}
+{% if product.metafields.HC_PREORDER != blank %}
+  {% assign preOrderMetafield = product.metafields.HC_PREORDER.value | json %}
+  {% if preOrderMetafield.value and preOrderMetafield.value.status == 'active' %}
+    {% assign isProductPreorderBackOrder = true %}
+  {% endif %}
 {% endif %}
 
 <script>
