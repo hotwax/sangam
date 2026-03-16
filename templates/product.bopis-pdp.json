@@ -478,7 +478,7 @@
                 "text_MpGFxq": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>HotWax identifies a customer's \"My Store\" and displays its pickup availability directly on the PDP. When browsing more locations, \"My Store\" remains the top priority, followed by a proximity-sorted list of nearby stores with store address, operating hours, distance from the customer’s location and one-tap Google Maps navigation.</p>",
+                    "text": "<p>HotWax identifies a customer's \"Home Store\" and displays its pickup availability directly on the PDP. When browsing more locations, \"Home Store\" remains the top priority, followed by a proximity-sorted list of nearby stores with store address, operating hours, distance from the customer’s location and one-tap Google Maps navigation.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
