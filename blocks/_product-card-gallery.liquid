@@ -1,9 +1,10 @@
 
 
 {% assign product = closest.product %}
-{% if product.metafields.HC_PREORDER != blank %}
-  {% assign preOrderMetafield = product.metafields.HC_PREORDER.PROMISE_DATE.value | json %}
-  {% if preOrderMetafield.value and preOrderMetafield.value.status == 'active' %}
+{% assign variant = product.selected_or_first_available_variant %}
+{% if variant.metafields.HC_PREORDER.PROMISE_DATE != blank %}
+  {% assign preOrderMetafield = variant.metafields.HC_PREORDER.PROMISE_DATE.value %}
+  {% if preOrderMetafield.status == 'active' %}
     {% assign isProductPreorderBackOrder = true %}
   {% endif %}
 {% endif %}
