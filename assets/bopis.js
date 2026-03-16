@@ -691,7 +691,6 @@
         renderStoresInDropdown(otherStores, '#hc-other-stores');
   
         homeStore.on('click', function(event) {
-            console.log('isHomeStoreDropdownOpen', isHomeStoreDropdownOpen)
             if(!isHomeStoreDropdownOpen) openStoreDropdown(event);
         });
     }
