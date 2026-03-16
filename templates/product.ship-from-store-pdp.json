@@ -677,6 +677,45 @@
                 "text_T7giax"
               ]
             },
+            "accordion_row_aMkV4T": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Order fulfillment capacity",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_dtr3XX": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Set daily order caps to prevent store teams from being overloaded during peak periods.</p>",
+                    "width": "100%",
+                    "max_width": "none",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_dtr3XX"
+              ]
+            },
             "accordion_row_6JgQaL": {
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
@@ -810,6 +849,7 @@
             "accordion_row_FprLLA",
             "accordion_row_yRd3HR",
             "accordion_row_jRWGkc",
+            "accordion_row_aMkV4T",
             "accordion_row_6JgQaL",
             "accordion_row_iw4F3q",
             "accordion_row_qeCAgT"
