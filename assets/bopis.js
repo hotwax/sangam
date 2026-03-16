@@ -9,7 +9,7 @@
 
     function getLocations() {
         const storeLocations = document.currentScript.dataset.eventlocations
-        return storeLocations.split(",").map(loc => loc.toUpperCase())
+        return storeLocations.split(",").map(loc => loc.toUpperCase()).reverse()
     }
 
     // defining a global object having properties which let merchant configure some behavior
@@ -874,10 +874,11 @@
             else otherStores.push(store)
         })
 
+
         if (payload.point) {
             eventStores = eventStores.sort((a, b) => a.dist - b.dist)
         } else {
-            for (let storeCode of bopisCustomConfig.eventLocations.reverse()) {
+            for (let storeCode of bopisCustomConfig.eventLocations) {
                 const index = eventStores.indexOf(eventStores.find((r) => r.storeCode == storeCode))
                 if (index > 0) {
                     eventStores.unshift(eventStores.splice(index, 1)[0])
