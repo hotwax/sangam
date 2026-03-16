@@ -108,7 +108,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_LWKWxL": {
+                "text_WtNQ9P": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -196,7 +196,7 @@
                 }
               },
               "block_order": [
-                "text_LWKWxL",
+                "text_WtNQ9P",
                 "divider_htX3hq",
                 "text_xrnftG",
                 "price_tVjtKg"
@@ -263,6 +263,32 @@
               },
               "block_order": []
             },
+            "text_m78zrE": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>HotWax automatically sorts pickup locations by ZIP code and choose if locations where the product is currently out of stock should also be displayed.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": true,
+                "background_color": "#f5f5f5",
+                "corner_radius": 10,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 20,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -295,6 +321,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "text_m78zrE",
             "text_aEtTtq"
           ]
         }

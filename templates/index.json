@@ -621,7 +621,7 @@
                 "text_GiMFnY": {
                   "type": "text",
                   "settings": {
-                    "text": "<h4>Choose your My Store</h4>",
+                    "text": "<h4>Choose your Home Store</h4>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -646,7 +646,7 @@
                 "text_ep8ArG": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Select your preferred pickup location from the header</p>",
+                    "text": "<p>Select your preferred pickup location</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
