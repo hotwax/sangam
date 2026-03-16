@@ -9,12 +9,6 @@
   {% endif %}
 {% endif %}
 
-<script>
-console.log('{{ product.metafields.HC_PREORDER.PROMISE_DATE.value }}');
-console.log('{{ product.metafields.HC_PREORDER | json }}');
-console.log('{{ preOrderMetafield }}');
-</script>
-
 {% capture children %}
   {% unless product == blank %}
     <div
