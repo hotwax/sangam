@@ -261,7 +261,7 @@ p {
     text-align: start;
 }
 
-#hc-my-store-bopis {
+.hc-my-store-bopis {
     position: relative;
 }
 
@@ -272,7 +272,7 @@ p {
     top: 0;
     left: 0;
     opacity: 50%;
-    z-index: 2000;
+    z-index: 1;
     backdrop-filter: brightness(0.5);
 }
 
@@ -343,10 +343,6 @@ p {
         max-height: fit-content;
     }
 
-    #hc-my-store-bopis {
-        margin-top: 20px;
-    }
-
     #hc-bopis-form-pdp {
         flex-direction: column;
     }
@@ -393,6 +389,13 @@ p {
 
     #hc-details-column {
         flex: 0;
+    }
+}
+
+@media (max-width: 749px) {
+    .hc-my-store-bopis {
+        margin-left: 16px;
+        margin-bottom: 0.5rem;
     }
 }
 

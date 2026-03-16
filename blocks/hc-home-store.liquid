@@ -1,0 +1,13 @@
+<div class="hc-my-store-bopis">
+  <div id="hc-home-store" style="display: flex; gap: 10px; align-items: center;">
+    <strong>Home Store: </strong><div style="cursor: pointer;"><span id="store">Select a store</span></div>
+    <input type="hidden" id="hc-customer-id" value="{{ customer.id }}"/>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:names.hcHomeStore",
+  "tag": null
+}
+{% endschema %}

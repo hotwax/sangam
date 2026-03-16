@@ -1,6 +1,6 @@
 // @ts-nocheck
 (function () {
-    let jQueryBopis, $location, backdrop, currentProduct, body, homeStore, stores, userHomeStore, otherStores, latlon, userLocationPoint, userZipCode, facility, shippingInventory, hcHomeStoreZipCode;
+    let jQueryBopis, $location, backdrop, currentProduct, body, homeStore, stores, userHomeStore, otherStores, latlon, userLocationPoint, userZipCode, facility, shippingInventory, hcHomeStoreZipCode, isHomeStoreDropdownOpen;
   
     // location data mapping
     const locationJSON = {
@@ -318,6 +318,12 @@
 
         body.on('click', function(event) {
             if (event.target == jQueryBopis("#hc-dropdown-backdrop")[0]) {
+                closeStoreDropdown();
+            }
+        })
+
+        homeStore.on('click', function(event) {
+            if(isHomeStoreDropdownOpen) {
                 closeStoreDropdown();
             }
         })
@@ -652,7 +658,7 @@
             </div>
         </div>`);
   
-        jQueryBopis("#hc-my-store-bopis").append($storeDropdown);
+        jQueryBopis(".hc-my-store-bopis").append($storeDropdown);
   
         if (userHomeStore) {
             const storeTodayTiming = getStoreTodayTiming(userHomeStore.timings);
@@ -677,7 +683,10 @@
   
         renderStoresInDropdown(otherStores, '#hc-other-stores');
   
-        homeStore.on('click', openStoreDropdown);
+        homeStore.on('click', function(event) {
+            console.log('isHomeStoreDropdownOpen', isHomeStoreDropdownOpen)
+            if(!isHomeStoreDropdownOpen) openStoreDropdown(event);
+        });
     }
   
     /*
@@ -762,6 +771,8 @@
         // add overflow style to disable background scroll when modal is opened
         body.css("overflow", "hidden");
         jQueryBopis(".hc-store-dropdown").show();
+
+        isHomeStoreDropdownOpen = true
     }
   
     function closeStoreDropdown () {
@@ -771,6 +782,7 @@
         jQueryBopis(".hc-store-dropdown").hide();
         body.css("overflow", "scroll");
         jQueryBopis("#hc-dropdown-backdrop").remove();
+        isHomeStoreDropdownOpen = false
     }
   
     async function initialiseBopis () {  
