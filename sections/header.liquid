@@ -47,6 +47,10 @@
     content_for 'block', type: '_header-logo', id: 'header-logo'
   endcapture
 
+  capture hcHomeStore
+    content_for 'block', type: 'hc-home-store', id: 'hc-home-store', variant: 'mobile'
+  endcapture
+
   capture menu
     content_for 'block', type: '_header-menu', id: 'header-menu'
   endcapture
@@ -344,8 +348,8 @@
             assign border_bottom_setting_id = 'border_width'
           endif
         when 'bottom'
-          assign first = ''
-          assign class = class | append: ' mobile:hidden'
+          assign first = hcHomeStore
+          assign class = class
 
           assign border_bottom_setting_id = 'border_width'
       endcase
@@ -364,6 +368,7 @@
         settings: section.settings,
         first: first,
         logo: logo,
+        hcHomeStore: hcHomeStore,
         menu: menu,
         actions: actions,
         localization: localization_markup,
@@ -1146,6 +1151,38 @@
         }
       ],
       "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "hcHomeStore_position",
+      "label": "t:settings.position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "hcHomeStore_row",
+      "label": "t:settings.row",
+      "options": [
+        {
+          "value": "top",
+          "label": "t:options.top"
+        },
+        {
+          "value": "bottom",
+          "label": "t:options.bottom"
+        }
+      ],
+      "default": "bottom"
     },
     {
       "type": "header",

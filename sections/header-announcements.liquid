@@ -36,16 +36,6 @@
       {% content_for 'blocks' %}
     </div>
   </announcement-bar-component>
-
-  {% comment %}
-  HC: added select option on header to select a store for bopis
-  {% endcomment %}
-  <div id="hc-my-store-bopis">
-    <div id="hc-home-store" style="display: flex; gap: 10px; align-items: center;">
-      <strong>Home Store: </strong><div style="cursor: pointer;"><span id="store">Select a store</span></div>
-      <input type="hidden" id="hc-customer-id" value="{{ customer.id }}"/>
-    </div>
-  </div>
 </aside>
 
 {% stylesheet %}

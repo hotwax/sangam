@@ -11,7 +11,6 @@
         if (location.pathname.includes('/products/')) {
             const addToCartButton = jQueryPreOrder(".hc_preorderButton")
             addToCartLabel = addToCartButton.find('.add-to-cart-text__content > span > span').text();
-            // console.log('addToCartLabel', addToCartLabel)
         }
     }
 

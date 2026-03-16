@@ -252,7 +252,7 @@
             "text_a4wGRJ": {
               "type": "text",
               "settings": {
-                "text": "<p>Pick up your gift at our next event (NRF, Shoptalk). HotWax displays real-time inventory availability at pickup locations directly at the PDP.</p>",
+                "text": "<p>HotWax displays real-time inventory availability at pickup locations directly at the PDP.</p><p>Pick up your gift at our next retail event (Shoptalk, NRF).</p>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
@@ -621,7 +621,7 @@
                 "text_GiMFnY": {
                   "type": "text",
                   "settings": {
-                    "text": "<h4>Choose your My Store</h4>",
+                    "text": "<h4>Choose your Home Store</h4>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -646,7 +646,7 @@
                 "text_ep8ArG": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Select your preferred pickup location from the header</p>",
+                    "text": "<p>Select your preferred pickup location</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -798,7 +798,7 @@
                 "text_fEkDzc": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>See real-time availability at your selected \"My Store\" while you browse.</p>",
+                    "text": "<p>See real-time availability at your selected \"My Store\" while you browse</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -950,7 +950,7 @@
                 "text_AfD8kJ": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Add your favorite gift to the cart and place your pickup order.</p>",
+                    "text": "<p>Add your favorite gift to the cart and place your pickup order</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1102,7 +1102,7 @@
                 "text_k7ifbY": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>HotWax will send you an email when your order is ready.</p>",
+                    "text": "<p>HotWax will send you an email when your order is ready</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1189,42 +1189,6 @@
     "section_AmpqJe": {
       "type": "section",
       "blocks": {
-        "collection_card_Y9DPdL": {
-          "type": "collection-card",
-          "name": "t:names.collection_card",
-          "settings": {
-            "collection": "ship-from-store",
-            "placement": "below_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
-            "collection_card_gap": 0,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 10
-          },
-          "blocks": {
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "portrait",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        },
         "group_eBWNBf": {
           "type": "group",
           "name": "SFS description",
@@ -1364,11 +1328,47 @@
             "text_qtDzYe",
             "button_ALXqUm"
           ]
+        },
+        "collection_card_Y9DPdL": {
+          "type": "collection-card",
+          "name": "t:names.collection_card",
+          "settings": {
+            "collection": "ship-from-store",
+            "placement": "below_image",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
+            "collection_card_gap": 0,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 10
+          },
+          "blocks": {
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "static": true,
+              "settings": {
+                "image_ratio": "portrait",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
         }
       },
       "block_order": [
-        "collection_card_Y9DPdL",
-        "group_eBWNBf"
+        "group_eBWNBf",
+        "collection_card_Y9DPdL"
       ],
       "name": "Image with text Ship From Store",
       "settings": {
