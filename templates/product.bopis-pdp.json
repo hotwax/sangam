@@ -114,7 +114,7 @@
                   "settings": {
                     "text": "<p>Real-time inventory availability is being published by HotWax OMS.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -129,8 +129,8 @@
                     "corner_radius": 10,
                     "padding-block-start": 20,
                     "padding-block-end": 20,
-                    "padding-inline-start": 10,
-                    "padding-inline-end": 10
+                    "padding-inline-start": 20,
+                    "padding-inline-end": 0
                   },
                   "blocks": {}
                 },
