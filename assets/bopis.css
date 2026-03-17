@@ -210,10 +210,6 @@ p {
     padding: 10px;
 }
 
-.hc-store-not-found {
-    margin: 5px;
-}
-
 #hc-bopis-form-pdp {
     display: flex;
     gap: 10px;

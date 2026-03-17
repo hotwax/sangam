@@ -1271,7 +1271,7 @@
     
                     $storeCard.append($pickUpButton);
                 } else {
-                    $storeCard.append('<p>Pickup only available at event locations</p>')
+                    $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
                 }
 
                 let $lineBreak = jQueryBopis('<hr/>')
@@ -1339,7 +1339,7 @@
     
                     $storeCard.append($pickUpButton);
                 } else {
-                    $storeCard.append('<p>Pickup only available at event locations</p>')
+                    $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
                 }
   
                 $storeCard.append($lineBreak);
