@@ -432,15 +432,15 @@
             let $storeDropdownCard = jQueryBopis('<div id="hc-store-dropdown-card"></div>');
             $storeDropdownCard.append(generateStoreInformationDropdownCard(store));
   
-            // only display `SET AS MY STORE` when the current store is not the homeStore and pickup is allowed on the store
+            // only display `SET AS HOME STORE` when the current store is not the homeStore and pickup is allowed on the store
             if (store.pickup_pref && !store.isHomeStore) {
-                let $setAsHomeStoreButton = jQueryBopis('<div class="hc-home-store-dropdown-button hc-pointer" tabindex="0" style="color: #C59A2A">SET AS MY STORE</div>');
+                let $setAsHomeStoreButton = jQueryBopis('<div class="hc-home-store-dropdown-button hc-pointer" tabindex="0" style="color: #C59A2A">SET AS HOME STORE</div>');
                 $setAsHomeStoreButton.on("click", updateUserStorePreference.bind(null, store));
                 $storeDropdownCard.append($setAsHomeStoreButton);
             }
   
             if (!store.pickup_pref) {
-                $storeDropdownCard.append(jQueryBopis('<h4 style="margin-top: 10px; text-align: start; font-size: .8em;" tabindex="0">Pickup available only at event locations</h4>'));
+                $storeDropdownCard.append(jQueryBopis('<h4 style="margin-top: 10px; text-align: start; font-size: .8em;" tabindex="0">Pickup only available at event locations</h4>'));
             }
   
             let $lineBreak = jQueryBopis('<hr class="hc-horizontal-rule"/>')
@@ -672,7 +672,7 @@
             const homeStoreName = userHomeStore.storeName + ' ' + (storeTodayTiming.open && storeTodayTiming.close ? `<span id="home-store-metadata">(Open from ${storeTodayTiming.open} to ${storeTodayTiming.close})</span>` : '<span id="home-store-metadata">(Closed Today)</span>')
             jQueryBopis('#hc-home-store #store').html(homeStoreName);
   
-            let $userHomeStoreTitle = jQueryBopis('<h2 class="hc-store-dropdown-title hc-font-xl">My Store:</h2>');
+            let $userHomeStoreTitle = jQueryBopis('<h2 class="hc-store-dropdown-title hc-font-xl">Home Store:</h2>');
             jQueryBopis('#hc-my-store-title').append($userHomeStoreTitle);
   
             renderStoresInDropdown([userHomeStore], '#hc-my-store')
@@ -1020,10 +1020,17 @@
         // checking if the number of stores is greater then 0 then creating a payload to check inventory
         if (storeInformation && storeInformation.response && storeInformation.response.numFound > 0) {
   
-            let storeCodes = storeInformation.response.docs.filter(store => {
+            // Fetch inventory for all the stores, as on sangam store we will also display the atp even
+            // when pickup is not allowed on that store
+            // let storeCodes = storeInformation.response.docs.filter(store => {
+            //     store.timings = getStoreTiming(store);
+            //     return store["pickup_pref"] === "true"
+            // }).map((store) => store.storeCode)
+
+            let storeCodes = storeInformation.response.docs.map(store => {
                 store.timings = getStoreTiming(store);
-                return store["pickup_pref"] === "true"
-            }).map((store) => store.storeCode)
+                return store.storeCode
+            })
   
             // passing the facilityId as an array in the payload
             let payload = {"sku" : sku, "facilityIds": storeCodes};
@@ -1037,6 +1044,7 @@
 
                     if (inventoryDoc && inventoryDoc.atp > 0) {
                         location["isInStock"] = true;
+                        location.atp = inventoryDoc.atp
                     } else {
                         location["isInStock"] = false;
                     }
@@ -1228,7 +1236,7 @@
                 return;
             }
 
-            homeStoreWrapper.append('<h6 style="margin: unset;">My Store:</h6>')
+            homeStoreWrapper.append('<h6 style="margin: unset;">Home Store:</h6>')
             let $storeCard = jQueryBopis('<div id="hc-store-card"></div>');
             const storeTodayTiming = getStoreTodayTiming(homeStore.timings);
 
@@ -1243,7 +1251,7 @@
                     <div id="hc-details-column">
                         <p>
                         <i class="fa ${homeStore.isInStock ? 'fa-check' : 'fa-xmark'} hc-icon hc-list-icon" tabindex="0" style="color: ${homeStore.isInStock ? 'green' : 'red'};"></i>
-                        ${homeStore.isInStock ? 'In stock' : 'Out of stock'}
+                        ${homeStore.isInStock ? homeStore.atp + ' In stock' : 'Out of stock'}
                         </p>
                         <p>
                         <i class="fa fa-phone hc-icon hc-list-icon" tabindex="0"></i>
@@ -1262,6 +1270,8 @@
                     $pickUpButton.on("click", updateCart.bind(null, homeStore));
     
                     $storeCard.append($pickUpButton);
+                } else {
+                    $storeCard.append('<p>Pickup only available at event locations</p>')
                 }
 
                 let $lineBreak = jQueryBopis('<hr/>')
@@ -1307,7 +1317,7 @@
                     <div id="hc-details-column">
                       <p>
                         <i class="fa ${store.isInStock ? 'fa-check' : 'fa-xmark'} hc-icon hc-list-icon" tabindex="0" style="color: ${store.isInStock ? 'green' : 'red'};"></i>
-                        ${store.isInStock ? 'In stock' : 'Out of stock'}
+                        ${store.isInStock ? store.atp + ' In stock' : 'Out of stock'}
                       </p>
                       <p>
                         <i class="fa fa-phone hc-icon hc-list-icon" tabindex="0"></i>
@@ -1328,6 +1338,8 @@
                     $pickUpButton.on("click", updateCart.bind(null, store));
     
                     $storeCard.append($pickUpButton);
+                } else {
+                    $storeCard.append('<p>Pickup only available at event locations</p>')
                 }
   
                 $storeCard.append($lineBreak);
