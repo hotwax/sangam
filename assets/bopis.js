@@ -816,7 +816,7 @@
                 <div class="hc-modal-content">
                     <div class="hc-modal-header">
                         <span class="hc-close hc-bopis-close"></span>
-                        <h1 class="hc-modal-title">Pick Up at our booth</h1>
+                        <h1 class="hc-modal-title">Pick up at our booth</h1>
                     </div>
                     <form id="hc-bopis-form-pdp">
                       <div class="hc-input-wrapper">
@@ -833,7 +833,7 @@
 
             // check if the element with class hc-bopis-button has button element in it then don't add button
             if (existingBopisButton.length == 0) {
-                let $btn = jQueryBopis('<button class="btn button hc-open-bopis-modal">Pick Up at our booth</button>');
+                let $btn = jQueryBopis('<button class="btn button hc-open-bopis-modal">Pick up at our booth</button>');
                 bopisButton.append($btn);
             }
 
