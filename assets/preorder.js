@@ -113,7 +113,7 @@
 
             // Using different namespace for preorder and backorder but will update it to use single
             // namespace for the both the things
-            const label = productType === 'Pre-Order' ? 'Pre Order' : productType === 'Back-Order' ? 'Back Order' : ''
+            const label = productType === 'Pre-Order' ? 'Pre-Order' : productType === 'Back-Order' ? 'Backorder' : ''
 
             preorderButton.find('.add-to-cart-text__content > span > span').text(label)
 
@@ -170,7 +170,7 @@
 
                         // Using different namespace for preorder and backorder but will update it to use single
                         // namespace for the both the things
-                        const label = productType === 'Pre-Order' ? 'Pre Order' : productType === 'Back-Order' ? 'Back Order' : ''
+                        const label = productType === 'Pre-Order' ? 'Pre-Order' : productType === 'Back-Order' ? 'Backorder' : ''
 
                         // will add Pre Order / Back Order label to the button
                         preorderButton.val(label);

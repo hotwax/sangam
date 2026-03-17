@@ -1373,7 +1373,7 @@
         }
 
         //   Added this property to be used in the in checkout shipping rate extension
-        let deliveryMethodInput = jQueryBopis(`<input id="hc-store-code" name="properties[Delivery Method]" value="Pick Up At ${store.storeName ? store.storeName : ''}${store.address1 ? `, ${store.address1}` : ''}" type="hidden"/>`)
+        let deliveryMethodInput = jQueryBopis(`<input id="hc-store-code" name="properties[_deliveryMethod]" value="Pick Up At ${store.storeName ? store.storeName : ''}${store.address1 ? `, ${store.address1}` : ''}" type="hidden"/>`)
         addToCartForm.append(deliveryMethodInput)
   
         let facilityNameInput = jQueryBopis(`<input id="hc-pickupstore-address" name="properties[Pickup Store]" value="${store.storeName ? store.storeName : ''}${store.address1 ? `, ${store.address1}` : ''}${store.city ? `, ${store.city}` : ''}" type="hidden"/>`)
