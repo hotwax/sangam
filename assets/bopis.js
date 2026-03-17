@@ -365,6 +365,7 @@
         </div>
         <div id="hc-store-dropdown-details">
             <div id="hc-store-dropdown-details-column">
+            <p class="hc-text">${store.directions ? store.directions : ''}</p>
             <p class="hc-text">${store.address1 ? store.address1 : ''}</p>
             <p class="hc-text">${store.city ? store.city : ''}${store.stateCode ? `, ${store.stateCode}` : ''}${store.postalCode ? `, ${store.postalCode}` : ''}${store.countryCode ? `, ${store.countryCode}` : ''}</p>
             </div>
@@ -815,7 +816,7 @@
                 <div class="hc-modal-content">
                     <div class="hc-modal-header">
                         <span class="hc-close hc-bopis-close"></span>
-                        <h1 class="hc-modal-title">Pick up today</h1>
+                        <h1 class="hc-modal-title">Pick Up at our booth</h1>
                     </div>
                     <form id="hc-bopis-form-pdp">
                       <div class="hc-input-wrapper">
@@ -832,7 +833,7 @@
 
             // check if the element with class hc-bopis-button has button element in it then don't add button
             if (existingBopisButton.length == 0) {
-                let $btn = jQueryBopis('<button class="btn button hc-open-bopis-modal">Pick Up Today</button>');
+                let $btn = jQueryBopis('<button class="btn button hc-open-bopis-modal">Pick Up at our booth</button>');
                 bopisButton.append($btn);
             }
 
@@ -1245,6 +1246,7 @@
                     <div id="hc-details-column">
                         <p class="hc-store-dist-metadata">${homeStore.dist && homeStore.dist !== "Infinity" ? parseFloat((homeStore.dist).toFixed(1)).toLocaleString() + ' mi. away from you' : ''}</p>
                         <h4 class="hc-store-title">${homeStore.storeName ? homeStore.storeName : ''}</h4>
+                        <p>${homeStore.directions ? homeStore.directions : ''}</p>
                         <p>${homeStore.address1 ? homeStore.address1 : ''}</p>
                         <p>${homeStore.city ? homeStore.city : ''}${homeStore.stateCode ? `, ${homeStore.stateCode}` : ''}${homeStore.postalCode ? `, ${homeStore.postalCode}` : ''}${homeStore.countryCode ? `, ${homeStore.countryCode}` : ''}</p>
                     </div>
@@ -1271,7 +1273,7 @@
     
                     $storeCard.append($pickUpButton);
                 } else if(homeStore["pickup_pref"] !== "true") {
-                    $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
+                    $storeCard.append('<p style="place-self: center; font-weight: 600;">Pickup only available at event locations</p>')
                 }
 
                 let $lineBreak = jQueryBopis('<hr/>')
@@ -1311,6 +1313,7 @@
                     <div id="hc-details-column">
                       <p class="hc-store-dist-metadata">${store.dist && store.dist !== "Infinity" ? parseFloat((store.dist).toFixed(1)).toLocaleString() + ' mi. away from you' : ''}</p>
                       <h4 class="hc-store-title">${store.storeName ? store.storeName : ''}</h4>
+                      <p>${store.directions ? store.directions : ''}</p>
                       <p>${store.address1 ? store.address1 : ''}</p>
                       <p>${store.city ? store.city : ''}${store.stateCode ? `, ${store.stateCode}` : ''}${store.postalCode ? `, ${store.postalCode}` : ''}${store.countryCode ? `, ${store.countryCode}` : ''}</p>
                     </div>
@@ -1339,7 +1342,7 @@
     
                     $storeCard.append($pickUpButton);
                 } else if(store["pickup_pref"] !== "true") {
-                    $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
+                    $storeCard.append('<p style="place-self: center; font-weight: 600;">Pickup only available at event locations</p>')
                 }
   
                 $storeCard.append($lineBreak);
@@ -1385,10 +1388,10 @@
         }
 
         //   Added this property to be used in the in checkout shipping rate extension
-        let deliveryMethodInput = jQueryBopis(`<input id="hc-store-code" name="properties[_deliveryMethod]" value="Pick Up At ${store.storeName ? store.storeName : ''}${store.address1 ? `, ${store.address1}` : ''}" type="hidden"/>`)
+        let deliveryMethodInput = jQueryBopis(`<input id="hc-store-code" name="properties[_deliveryMethod]" value="Pick Up At ${store.storeName ? store.storeName : ''}${store.directions ? `, ${store.directions}` : ''}${store.address1 ? `, ${store.address1}` : ''}" type="hidden"/>`)
         addToCartForm.append(deliveryMethodInput)
   
-        let facilityNameInput = jQueryBopis(`<input id="hc-pickupstore-address" name="properties[Pickup Store]" value="${store.storeName ? store.storeName : ''}${store.address1 ? `, ${store.address1}` : ''}${store.city ? `, ${store.city}` : ''}" type="hidden"/>`)
+        let facilityNameInput = jQueryBopis(`<input id="hc-pickupstore-address" name="properties[Pickup Store]" value="${store.storeName ? store.storeName : ''}${store.directions ? `, ${store.directions}` : ''}${store.address1 ? `, ${store.address1}` : ''}${store.city ? `, ${store.city}` : ''}" type="hidden"/>`)
         addToCartForm.append(facilityNameInput)
   
         // using the cart add endpoint to add the product to cart, as using the theme specific methods is not recommended.
