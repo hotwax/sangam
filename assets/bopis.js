@@ -1265,12 +1265,12 @@
                 </div>`);
                 $storeCard.append($storeInformationCard);
 
-                if(homeStore.isInStock) {
+                if(homeStore.isInStock && homeStore["pickup_pref"] === "true") {
                     let $pickUpButton = jQueryBopis('<button class="btn button hc-store-pick-up-button">Pick Up Here</button>');
                     $pickUpButton.on("click", updateCart.bind(null, homeStore));
     
                     $storeCard.append($pickUpButton);
-                } else {
+                } else if(homeStore["pickup_pref"] !== "true") {
                     $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
                 }
 
@@ -1333,12 +1333,12 @@
                 let $lineBreak = jQueryBopis('<hr/>')
                 $storeCard.append($storeInformationCard);
 
-                if(store.isInStock) {
+                if(store.isInStock && homeStore["pickup_pref"] === "true") {
                     let $pickUpButton = jQueryBopis('<button class="btn button hc-store-pick-up-button">Pick Up Here</button>');
                     $pickUpButton.on("click", updateCart.bind(null, store));
     
                     $storeCard.append($pickUpButton);
-                } else {
+                } else if(homeStore["pickup_pref"] !== "true") {
                     $storeCard.append('<p style="place-self: center;">Pickup only available at event locations</p>')
                 }
   
