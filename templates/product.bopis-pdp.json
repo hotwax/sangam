@@ -268,8 +268,8 @@
               "name": "t:names.text",
               "settings": {
                 "text": "<p>HotWax lets you sort pickup locations by ZIP code and choose if locations where the product is currently out of stock should also be displayed. You can also configure which products should be available for pickup at which locations.</p>",
-                "width": "100%",
-                "max_width": "none",
+                "width": "fit-content",
+                "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -285,7 +285,7 @@
                 "padding-block-start": 20,
                 "padding-block-end": 20,
                 "padding-inline-start": 20,
-                "padding-inline-end": 0
+                "padding-inline-end": 20
               },
               "blocks": {}
             },
