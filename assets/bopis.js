@@ -1415,7 +1415,7 @@
                     url: `${maargUrl}/rest/s1/ofbiz-oms-usl/checkShippingInventory`,
                     crossDomain: true,
                     data: JSON.stringify({
-                        productStoreId: 'STORE',
+                        productStoreId: 'SANGAM',
                         inventoryGroupId: 'FAC_GRP',
                         internalNames: sku,
                         facilityIds: storeIds,
