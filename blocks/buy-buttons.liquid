@@ -10,11 +10,23 @@
   assign inventory_quantity = variant.inventory_quantity
   assign inventory_policy = variant.inventory_policy
 
+  assign inventory_on_hand_label = 'On Hand'
+  assign atp_label = 'Online ATP'
+
   assign inventory_on_hand = 10
   assign safety_stock = 2
   assign threshold = 1
   assign offline_inv = 1
   assign online_atp = inventory_quantity | default: 0
+
+  if inventory_policy == 'continue'
+    assign online_atp = 1
+    assign threshold = 0
+    assign offline_inv = 0
+    assign atp_label = 'Purchase Order ATP'
+    assign inventory_on_hand_label = 'Purchase Order Inventory'
+  endif
+
   assign committed = inventory_on_hand | minus: safety_stock | minus: threshold | minus: offline_inv | minus: online_atp
   assign physical_atp = inventory_on_hand | minus: committed
 
@@ -263,7 +275,7 @@
         <div style="margin-top: 20px;">
           <h4 style="font-size: 20px; margin-bottom: 10px;">Inventory Configuration</h4>
           <div id="inventory-configuration-details">
-            <b><p>On Hand<span class="inv-config-value">{{inventory_on_hand}}</span></p></b>
+            <b><p>{{inventory_on_hand_label}}<span class="inv-config-value">{{inventory_on_hand}}</span></p></b>
             <p>Committed<span class="inv-config-value">-{{committed}}</span></p>
             <hr style="margin: 4px;">
             <b><p>Physical ATP<span class="inv-config-value">{{physical_atp}}</span></p></b>
@@ -271,7 +283,7 @@
             <p>Global Threshold<span class="inv-config-value">-{{threshold}}</span></p>
             <p>Offline Store<span class="inv-config-value">-{{offline_inv}}</span></p>
             <hr style="margin: 4px;">
-            <b><p>Online ATP<span class="inv-config-value">{{online_atp}}</span></p></b>
+            <b><p>{{atp_label}}<span class="inv-config-value">{{online_atp}}</span></p></b>
           </div>
         </div>
       {%- endform -%}
