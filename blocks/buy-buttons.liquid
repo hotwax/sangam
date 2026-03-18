@@ -15,8 +15,8 @@
   assign threshold = 1
   assign offline_inv = 1
   assign online_atp = inventory_quantity | default: 0
-  assign physical_atp = safety_stock | plus: threshold | plus: offline_inv
-  assign committed = inventory_on_hand | minus: physical_atp | minus: online_atp
+  assign committed = inventory_on_hand | minus: safety_stock | minus: threshold | minus: offline_inv | minus: online_atp
+  assign physical_atp = inventory_on_hand | minus: committed
 
   if variant.inventory_management == 'shopify'
     assign inventory_managed = true
