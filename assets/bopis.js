@@ -400,6 +400,7 @@
   
         // updating currentStore information(storeCode, name, and latlon) in the localStorage
         store.storeName && (localStorage.setItem('HC_CURRENT_STORE_NAME', store.storeName)); // storing home store name in localStorage, as to display store name on collection/category page
+        store.postalCode && (localStorage.setItem('HC_CURRENT_STORE_POSTALCODE', store.postalCode)); // storing home store postalCode in localStorage, as to display it on EDD section when searched on the basis of home Store
         store.latlon && (localStorage.setItem('HC_CURRENT_STORE_LAT_LON', store.latlon)); // storing home store latLon in localStorage to use when fetching stores information on the basis of homeStore latLon
         localStorage.setItem('HC_CURRENT_STORE', store.storeCode);
   
@@ -1560,7 +1561,7 @@
             let homeStoreZipCode = ""
             if(homeStoreLatLon) {
                 latlon = homeStoreLatLon;
-                homeStoreZipCode = await getZipCodeForLatlon(homeStoreLatLon)
+                homeStoreZipCode = localStorage.getItem("HC_CURRENT_STORE_POSTALCODE")
                 hcHomeStoreZipCode = homeStoreZipCode
             }
     
