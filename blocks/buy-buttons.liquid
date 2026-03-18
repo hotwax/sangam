@@ -275,15 +275,68 @@
         <div style="margin-top: 20px;">
           <h4 style="font-size: 20px; margin-bottom: 10px;">Inventory Configuration</h4>
           <div id="inventory-configuration-details">
-            <b><p>{{inventory_on_hand_label}}<span class="inv-config-value">{{inventory_on_hand}}</span></p></b>
-            <p>Committed<span class="inv-config-value">-{{committed}}</span></p>
+            <b>
+              <p>
+                {{inventory_on_hand_label}}
+                <span class="inv-config-value">
+                  {{inventory_on_hand}}
+                </span>
+              </p>
+            </b>
+            <p>
+              Committed
+              <span class="inv-config-value">
+              {%- if committed > 0 -%}
+                -
+              {%- endif -%}
+              {{committed}}
+              </span>
+            </p>
             <hr style="margin: 4px;">
-            <b><p>Physical ATP<span class="inv-config-value">{{physical_atp}}</span></p></b>
-            <p>Safety Stock<span class="inv-config-value">-{{safety_stock}}</span></p>
-            <p>Global Threshold<span class="inv-config-value">-{{threshold}}</span></p>
-            <p>Offline Store<span class="inv-config-value">-{{offline_inv}}</span></p>
+            <b>
+              <p>
+                Physical ATP
+                <span class="inv-config-value">
+                  {{physical_atp}}
+                </span>
+              </p>
+            </b>
+            <p>
+              Safety Stock
+              <span class="inv-config-value">
+                {%- if safety_stock > 0 -%}
+                  -
+                {%- endif -%}
+                {{safety_stock}}
+              </span>
+            </p>
+            <p>
+              Global Threshold
+              <span class="inv-config-value">
+                {%- if threshold > 0 -%}
+                  -
+                {%- endif -%}
+                {{threshold}}
+              </span>
+            </p>
+            <p>
+              Offline Store
+              <span class="inv-config-value">
+                {%- if offline_inv > 0 -%}
+                  -
+                {%- endif -%}
+                {{offline_inv}}
+              </span>
+            </p>
             <hr style="margin: 4px;">
-            <b><p>{{atp_label}}<span class="inv-config-value">{{online_atp}}</span></p></b>
+            <b>
+              <p>
+                {{atp_label}}
+                <span class="inv-config-value">
+                  {{online_atp}}
+                </span>
+              </p>
+            </b>
           </div>
         </div>
       {%- endform -%}
