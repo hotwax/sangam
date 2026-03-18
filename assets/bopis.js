@@ -600,7 +600,7 @@
         let searchedStores = shippingInventory;
 
         if(latlon) {
-            searchedStores = await fetchStores();
+            searchedStores = await fetchStores({ storeType: "RETAIL_STORE OR WAREHOUSE" });
 
             const sku = jQueryBopis("input.hc_product_sku").text() || jQueryBopis("input.hc_product_sku").val();
             const storeCodes = searchedStores.map((store) => store.storeCode)
@@ -735,11 +735,11 @@
   
       @return {array} An array of object containing stores information, and empty if stores not found
       */
-    async function fetchStores() {
+    async function fetchStores(filters) {
         let storesInformationResp;
   
         try {
-            storesInformationResp = await getStoreInformation();
+            storesInformationResp = await getStoreInformation(filters);
         } catch(err) {
             // if storeLookup api throws any error than removing the loader added and also changed text to default text
             jQueryBopis('#hc-home-store #store > .hc-loading').remove();
@@ -922,11 +922,18 @@
         return [...eventStores, ...otherStores]
     }
 
-    function getStoreInformation() {
+    function getStoreInformation(filters) {
         const payload = {
             viewSize: 100,
-            filters: ["storeType: RETAIL_STORE", "shopifyShop_id: 98255470958"]
+            filters: ["shopifyShop_id: 98255470958"]
         }
+
+        if(filters && filters.storeType) {
+            payload["filters"].push(`storeType: ${filters.storeType}`)
+        } else {
+            payload["filters"].push("storeType: RETAIL_STORE")
+        }
+
 
         // fetching home store latLon from localStorage
         const homeStoreLatLon = localStorage.getItem('HC_CURRENT_STORE_LAT_LON');
