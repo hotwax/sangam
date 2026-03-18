@@ -90,6 +90,7 @@
             preorderButton.off('click', addToCart);
             jQueryPreOrder(".hc-bopis-button").show();
             jQueryPreOrder("#hc-edd").show();
+            jQueryPreOrder("#hc-edd-sample-codes").show();
             // preorderButton.siblings().css('display', 'block');
 
             let { productType, estimatedDeliveryDate } = getProductTypeAndEstimatedDate();
@@ -108,6 +109,7 @@
 
             jQueryPreOrder(".hc-bopis-button").hide();
             jQueryPreOrder("#hc-edd").hide();
+            jQueryPreOrder("#hc-edd-sample-codes").hide();
 
             // preorderButton.siblings().css('display', 'none');
 
