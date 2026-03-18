@@ -2295,5 +2295,28 @@
         "default": "NRF,COMMERCE_NEXT,ETAIL_PALM_SPRING,SHOPTALK_SPRING"
       }
     ]
+  },
+  {
+    "name": "t:names.hcSampleZipCodes",
+    "settings": [
+      {
+        "type": "text",
+        "id": "sample_zipcodes",
+        "label": "List of sample zipcodes(separated by comma, <zipcode>:<description>)",
+        "default": "10001:Store zipcode,89119: Warehouse zipcode"
+      },
+      {
+        "type": "text",
+        "id": "sample_zipcodes_title",
+        "label": "Title for sample zipcodes section",
+        "default": "Sample codes for delivery date"
+      },
+      {
+        "type": "text",
+        "id": "sample_zipcodes_description",
+        "label": "Description for sample zipcodes section",
+        "default": "Experience estimated delivery date flow"
+      }
+    ]
   }
 ]

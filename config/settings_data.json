@@ -79,6 +79,7 @@
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
     "home_store_event_locations": "SHOPTALK_SPRING,NRF,COMMERCE_NEXT,ETAIL_PALM_SPRING",
+    "sample_zipcodes": "10001:Store zipcode,89119: Warehouse zipcode",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {

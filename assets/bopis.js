@@ -12,6 +12,11 @@
         return storeLocations.split(",").map(loc => loc.toUpperCase()).reverse()
     }
 
+    function getSampleZipCodes() {
+        const sampleZipCodes = document.currentScript.dataset.samplezipcodes
+        return sampleZipCodes.split(",")
+    }
+
     // defining a global object having properties which let merchant configure some behavior
     this.bopisCustomConfig = {
         'enableCartRedirection': true,
@@ -19,7 +24,10 @@
         'searchInputPlaceholder': 'Search by zip code (50 mile radius)',
         'shippingMethods': ['Standard', '2 day', 'Overnight'],
         'enableUpdatingFulfillmentLocation': false,
-        'eventLocations': getLocations()
+        'eventLocations': getLocations(),
+        'sampleZipCodes': getSampleZipCodes(),
+        'samplezipcodetitle': document.currentScript.dataset.samplezipcodetitle,
+        'samplezipcodedescription': document.currentScript.dataset.samplezipcodedescription,
     };
 
 
@@ -168,7 +176,7 @@
   
       @param {identifier} form identifier inside which we need to search for input field
     */
-      function toggleClearIcon(identifier, event) {
+    function toggleClearIcon(identifier, event) {
         event.preventDefault();
         if(jQueryBopis(`${identifier} input`).val().length) {
             jQueryBopis(`${identifier} .hc-close-icon`).show();
@@ -333,6 +341,31 @@
             if(isHomeStoreDropdownOpen) {
                 closeStoreDropdown();
             }
+        })
+        const sampleZipCodesWrapper = jQueryBopis("#hc-edd-sample-codes")
+
+        const sampleZipCodeSection = jQueryBopis(`
+            <h4 class="hc-font-m" style="margin-bottom: 0px;">${bopisCustomConfig.samplezipcodetitle}</h4>
+            <p style="margin-bottom: 10px;">${bopisCustomConfig.samplezipcodedescription}</p>
+            <div id="hc-sample-zip-details"></div>`
+        );
+
+        sampleZipCodesWrapper.append(sampleZipCodeSection)
+
+        bopisCustomConfig.sampleZipCodes.map((zipcode) => {
+            const [code, desc] = zipcode.split(":")
+            jQueryBopis("#hc-sample-zip-details").append(jQueryBopis(`
+                <p class="hc-sample-zip">
+                    <b>${code.trim()}</b>: ${desc.trim()}
+                </p>`
+            ))
+        })
+
+        jQueryBopis(".hc-sample-zip").each(function(index, zipCode) {
+            jQueryBopis(this).on("click", function() {
+                jQueryBopis('.hc-edd-pin').val(jQueryBopis(this).text().split(":")[0].trim()).trigger('input');    // triggering input event, as when using val() function to update the value of input, input event does not trigger automatically
+                searchStoresOnPDP();
+            })
         })
     }
   
