@@ -293,16 +293,14 @@
               </span>
             </p>
             <hr style="margin: 4px;">
-            {%- if inventory_policy == 'continue' -%}
-              <b>
-                <p>
-                  Physical ATP
-                  <span class="inv-config-value">
-                    {{physical_atp}}
-                  </span>
-                </p>
-              </b>
-            {%- endif -%}
+            <b>
+              <p>
+                Physical ATP
+                <span class="inv-config-value">
+                  {{physical_atp}}
+                </span>
+              </p>
+            </b>
             <p>
               Safety Stock
               <span class="inv-config-value">
@@ -312,18 +310,15 @@
                 {{safety_stock}}
               </span>
             </p>
-            {%- if inventory_policy == 'continue' -%}
-              <p>
-                Global Threshold
-                <span class="inv-config-value">
-                  {%- if threshold > 0 -%}
-                    -
-                  {%- endif -%}
-                  {{threshold}}
-                </span>
-              </p>
-            {%- endif -%}
-            {%- if inventory_policy == 'continue' -%}
+            <p>
+              Global Threshold
+              <span class="inv-config-value">
+                {%- if threshold > 0 -%}
+                  -
+                {%- endif -%}
+                {{threshold}}
+              </span>
+            </p>
               <p>
                 Offline Store
                 <span class="inv-config-value">
@@ -333,7 +328,6 @@
                   {{offline_inv}}
                 </span>
               </p>
-            {%- endif -%}
             <hr style="margin: 4px;">
             <b>
               <p>
