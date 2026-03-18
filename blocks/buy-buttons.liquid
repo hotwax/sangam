@@ -10,6 +10,14 @@
   assign inventory_quantity = variant.inventory_quantity
   assign inventory_policy = variant.inventory_policy
 
+  assign inventory_on_hand = 10
+  assign safety_stock = 2
+  assign threshold = 1
+  assign offline_inv = 1
+  assign online_atp = inventory_quantity | default: 0
+  assign physical_atp = safety_stock | plus: threshold | plus: offline_inv
+  assign committed = inventory_on_hand | minus: physical_atp | minus: online_atp
+
   if variant.inventory_management == 'shopify'
     assign inventory_managed = true
   endif
@@ -252,6 +260,20 @@
         <div class="hc-bopis-button"></div>
         <div id="hc-edd" style="margin-top: 20px;"></div>
         <div id="hc-edd-sample-codes" style="margin-top: 20px;"></div>
+        <div style="margin-top: 20px;">
+          <h4 style="font-size: 20px; margin-bottom: 10px;">Inventory Configuration</h4>
+          <div id="inventory-configuration-details">
+            <b><p>On Hand<span class="inv-config-value">{{inventory_on_hand}}</span></p></b>
+            <p>Committed<span class="inv-config-value">-{{committed}}</span></p>
+            <hr style="margin: 4px;">
+            <b><p>Physical ATP<span class="inv-config-value">{{physical_atp}}</span></p></b>
+            <p>Safety Stock<span class="inv-config-value">-{{safety_stock}}</span></p>
+            <p>Global Threshold<span class="inv-config-value">-{{threshold}}</span></p>
+            <p>Offline Store<span class="inv-config-value">-{{offline_inv}}</span></p>
+            <hr style="margin: 4px;">
+            <b><p>Online ATP<span class="inv-config-value">{{online_atp}}</span></p></b>
+          </div>
+        </div>
       {%- endform -%}
     </product-form-component>
   {%- else -%}
@@ -687,6 +709,15 @@
 
   .volume-pricing--expanded .volume-pricing__show-less {
     display: inline;
+  }
+
+  .inv-config-value {
+    float: right;
+  }
+
+  #inventory-configuration-details {
+    background-color: #f5f5f5;
+    padding: 10px 20px;
   }
 {% endstylesheet %}
 
