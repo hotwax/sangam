@@ -1583,9 +1583,9 @@
 
             jQueryBopis(".hc-no-store-found").hide();
             if(jQueryBopis(".hc-edd-wrapper").is(":visible")) {
-                jQueryBopis(".hc-edd-wrapper").hide();
+                jQueryBopis(".hc-edd-wrapper").hide('400');
             } else {
-                jQueryBopis(".hc-edd-wrapper").show();
+                jQueryBopis(".hc-edd-wrapper").show('400');
             }
         })
     }
