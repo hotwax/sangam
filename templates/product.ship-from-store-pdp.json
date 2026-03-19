@@ -333,10 +333,10 @@
             "overlay_color": "#00000026",
             "overlay_style": "solid",
             "gradient_direction": "to top",
-            "padding-block-start": 48,
+            "padding-block-start": 0,
             "padding-block-end": 48,
             "padding-inline-start": 48,
-            "padding-inline-end": 48
+            "padding-inline-end": 0
           },
           "blocks": {}
         }
@@ -347,19 +347,19 @@
       "name": "Order lifecycle video",
       "settings": {
         "display_mode": "full_frame",
-        "section_width": "page-width",
+        "section_width": "full-width",
         "full_frame_on_mobile": false,
         "slideshow_gap": 12,
         "corner_radius": 0,
         "slide_height": "medium",
         "content_position": "on-media",
         "color_scheme": "",
-        "icons_style": "arrows_large",
+        "icons_style": "none",
         "icons_shape": "none",
         "slideshow_controls_style": "dots",
         "autoplay": false,
         "autoplay_speed": 4,
-        "padding-block-start": 50,
+        "padding-block-start": 0,
         "padding-block-end": 0
       }
     },
