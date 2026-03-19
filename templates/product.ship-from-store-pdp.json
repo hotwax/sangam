@@ -460,7 +460,7 @@
           "settings": {
             "label": "Download guide",
             "link": "https://www.hotwax.co/hubfs/assets/omnichannel-order-routing-mini-guide.pdf",
-            "open_in_new_tab": false,
+            "open_in_new_tab": true,
             "style_class": "button",
             "width": "fit-content",
             "custom_width": 100,
@@ -1116,7 +1116,7 @@
           "settings": {
             "label": "Download guide",
             "link": "https://www.hotwax.co/hubfs/assets/popular-omnichannel-configurations.pdf",
-            "open_in_new_tab": false,
+            "open_in_new_tab": true,
             "style_class": "button",
             "width": "fit-content",
             "custom_width": 100,
