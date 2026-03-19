@@ -377,24 +377,35 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "button_jLgDh9": {
-              "type": "button",
-              "name": "t:names.button",
+            "text_rCJBqY": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "label": "Ship from store works best when routing aligns with your business rules",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
+                "text": "<h4>Ship from store works best when routing aligns with your business rules</h4>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "button_jLgDh9"
+            "text_rCJBqY"
           ]
         }
       },
