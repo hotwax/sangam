@@ -408,7 +408,7 @@
       ],
       "name": "Order lifecycle video",
       "settings": {
-        "display_mode": "full_frame",
+        "display_mode": "with_hints",
         "section_width": "page-width",
         "full_frame_on_mobile": false,
         "slideshow_gap": 12,
