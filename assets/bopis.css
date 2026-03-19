@@ -6,8 +6,9 @@ p {
     margin: 0;
 }
 
-.hc-bopis-store-pin, #hc-bopis-store-pin {
+.hc-bopis-store-pin, #hc-bopis-store-pin, .hc-edd-pin {
     padding-left: 10px;
+    border-radius: 10px;
 }
 
 .hc-bopis-modal, .hc-edd-modal {
@@ -101,6 +102,7 @@ p {
     display: flex;
     border: 2px solid #e8e8e1;
     justify-content: center;
+    border-radius: 10px;
 }
 
 .hc-edd-wrapper {
