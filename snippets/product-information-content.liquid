@@ -103,8 +103,25 @@
     {% for block in render_order_array %}
       {% if block == 'media' and product_has_media %}
         {{ media }}
-      {% elsif block == 'product-details' %}
+            {% elsif block == 'product-details' %}
         {{ product_details }}
+        {% if settings.show_gift_card_banner and closest.product.price == 10000 %}
+          <div style="
+            background-color: #fff8e1;
+            border: 1px solid #f5c518;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin: -16px 0 16px 0;
+            font-size: 13px;
+            font-weight: 500;
+            color: #7a5c00;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+          ">
+            🎁 This item is redeemable with your $100 gift card!
+          </div>
+        {% endif %}
       {% endif %}
     {% endfor %}
   </div>
