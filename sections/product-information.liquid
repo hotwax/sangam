@@ -175,18 +175,19 @@
   product_details: product_details,
   additional_blocks: additional_blocks
 %}
-<div style="
-  background-color: #fff8e1;
-  border: 1px solid #f5c518;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin: 12px 0;
-  font-size: 14px;
-  color: #333;
-">
-  🎁 Test banner - no condition
-</div>
-
+{% if closest.product.price == 10000 %}
+  <div style="
+    background-color: #fff8e1;
+    border: 1px solid #f5c518;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    color: #333;
+  ">
+    🎁 This item is redeemable with your $100 gift card!
+  </div>
+{% endif %}
 {% stylesheet %}
   .sticky-add-to-cart__bar {
     position: fixed;
