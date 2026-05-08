@@ -166,7 +166,30 @@
     </div>
   </sticky-add-to-cart>
 {% endif %}
-
+{% if closest.product.price == 10000 %}
+  <style>
+    .gift-card-notice {
+      background-color: #fff8e1;
+      border: 1px solid #f5c518;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #7a5c00;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      top: 260px;
+      right: 0;
+      width: 48%;
+      box-sizing: border-box;
+    }
+  </style>
+  <div class="gift-card-notice">
+    🎁 This item is redeemable with your $100 gift card!
+  </div>
+{% endif %}
 {% render 'product-information-content',
   product_media_size: closest.product.media.size,
   section_id: section.id,
