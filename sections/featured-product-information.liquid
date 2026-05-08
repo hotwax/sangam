@@ -21,7 +21,23 @@
 {% capture additional_blocks %}
   {% content_for 'blocks' %}
 {% endcapture %}
-
+{% if closest.product.price == 10000 %}
+  <div style="
+    background-color: #fff8e1;
+    border: 1px solid #f5c518;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 0 0 16px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a5c00;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  ">
+    🎁 This item is redeemable with your $100 gift card!
+  </div>
+{% endif %}
 <featured-product-information id="{{ section.id }}">
   {% render 'product-information-content',
     product_media_size: section.settings.product.media.size,
