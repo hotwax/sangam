@@ -176,21 +176,20 @@
       font-size: 13px;
       font-weight: 500;
       color: #7a5c00;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 8px;
+      width: fit-content;
       position: absolute;
-      top: 260px;
-      left: auto;
-      right: 0;
-      width: 48%;
-      box-sizing: border-box;
+      top: 248px;
+      right: 20px;
     }
   </style>
   <div class="gift-card-notice">
     🎁 This item is redeemable with your $100 gift card!
   </div>
 {% endif %}
+
 {% render 'product-information-content',
   product_media_size: closest.product.media.size,
   section_id: section.id,
