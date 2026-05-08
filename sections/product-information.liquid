@@ -168,6 +168,13 @@
 {% endif %}
 {% if closest.product.price == 10000 %}
   <style>
+    .gift-card-notice-wrapper {
+      width: 100%;
+      max-width: var(--page-width, 1200px);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
     .gift-card-notice {
       background-color: #fff8e1;
       border: 1px solid #f5c518;
@@ -180,16 +187,31 @@
       align-items: center;
       gap: 8px;
       width: fit-content;
-      position: absolute;
-      top: 248px;
-      right: 20px;
+      margin-left: auto;
+      margin-bottom: 16px;
+    }
+
+    @media screen and (max-width: 749px) {
+      .gift-card-notice-wrapper {
+        padding: 0 16px;
+      }
+
+      .gift-card-notice {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 12px;
+        font-size: 13px;
+        justify-content: flex-start;
+      }
     }
   </style>
-  <div class="gift-card-notice">
-    🎁 This item is redeemable with your $100 gift card!
+
+  <div class="gift-card-notice-wrapper">
+    <div class="gift-card-notice">
+      🎁 This item is redeemable with your $100 gift card!
+    </div>
   </div>
 {% endif %}
-
 {% render 'product-information-content',
   product_media_size: closest.product.media.size,
   section_id: section.id,
