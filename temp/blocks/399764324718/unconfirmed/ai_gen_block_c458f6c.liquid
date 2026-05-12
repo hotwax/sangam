@@ -1,6 +1,537 @@
+{% doc %}
+  @prompt
+    Create a custom collection section for the BOPIS collection page that splits products into two groups with a heading separator between them. The first group should be labeled "Exclusives" and display products priced at $100.00 with no compare-at price. The second group should display discounted products (those with a compare-at price higher than the current price). Each group should render a product grid matching the store's existing product card style (image, title, price). The "Exclusives" heading should be styled prominently. The section should work as a replacement for the default collection product grid on the BOPIS collection template.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% liquid
+  assign exclusives = collection.products | where: 'price', 10000
+  assign discounted = collection.products | where_exp: 'product', 'product.compare_at_price > product.price'
+  
+  assign exclusives_filtered = ''
+  for product in exclusives
+    if product.compare_at_price == blank or product.compare_at_price == 0 or product.compare_at_price == product.price
+      assign exclusives_filtered = exclusives_filtered | append: product.id | append: ','
+    endif
+  endfor
+  
+  assign exclusives_ids = exclusives_filtered | split: ','
+%}
+
+{% style %}
+  .ai-bopis-collection-{{ ai_gen_id }} {
+    width: 100%;
+    display: block;
+  }
+
+  .ai-bopis-collection__group-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.group_spacing }}px;
+  }
+
+  .ai-bopis-collection__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: {{ block.settings.heading_weight }};
+    color: {{ block.settings.heading_color }};
+    margin-bottom: {{ block.settings.heading_spacing }}px;
+    padding-bottom: {{ block.settings.heading_padding_bottom }}px;
+    border-bottom: {{ block.settings.heading_border_width }}px solid {{ block.settings.heading_border_color }};
+    text-transform: {{ block.settings.heading_text_transform }};
+  }
+
+  .ai-bopis-collection__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-bopis-collection__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+  }
+
+  .ai-bopis-collection__product-card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ai-bopis-collection__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    margin-bottom: 12px;
+  }
+
+  .ai-bopis-collection__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-bopis-collection__product-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_title_size }}px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: {{ block.settings.product_title_color }};
+  }
+
+  .ai-bopis-collection__price-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-bopis-collection__price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.price_color }};
+  }
+
+  .ai-bopis-collection__compare-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.compare_price_size }}px;
+    text-decoration: line-through;
+    color: {{ block.settings.compare_price_color }};
+    opacity: 0.7;
+  }
+
+  .ai-bopis-collection__sale-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: {{ block.settings.sale_badge_bg }};
+    color: {{ block.settings.sale_badge_text_color }};
+    padding: 4px 12px;
+    border-radius: {{ block.settings.sale_badge_radius }}px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ai-bopis-collection__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 14px;
+  }
+{% endstyle %}
+
+<bopis-collection-{{ ai_gen_id }} class="ai-bopis-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_exclusives %}
+    <div class="ai-bopis-collection__group-{{ ai_gen_id }}">
+      <h2 class="ai-bopis-collection__heading-{{ ai_gen_id }}">
+        {{ block.settings.exclusives_heading }}
+      </h2>
+      
+      <div class="ai-bopis-collection__grid-{{ ai_gen_id }}">
+        {% assign exclusives_count = 0 %}
+        {% for product in collection.products %}
+          {% if product.price == 10000 %}
+            {% if product.compare_at_price == blank or product.compare_at_price == 0 or product.compare_at_price == product.price %}
+              {% assign exclusives_count = exclusives_count | plus: 1 %}
+              <a href="{{ product.url }}" class="ai-bopis-collection__product-card-{{ ai_gen_id }}">
+                <div class="ai-bopis-collection__image-wrapper-{{ ai_gen_id }}">
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      class="ai-bopis-collection__image-{{ ai_gen_id }}"
+                      loading="lazy"
+                      width="600"
+                      height="600"
+                    >
+                  {% else %}
+                    <div class="ai-bopis-collection__image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                </div>
+                <h3 class="ai-bopis-collection__product-title-{{ ai_gen_id }}">
+                  {{ product.title }}
+                </h3>
+                <div class="ai-bopis-collection__price-wrapper-{{ ai_gen_id }}">
+                  <span class="ai-bopis-collection__price-{{ ai_gen_id }}">
+                    {{ product.price | money }}
+                  </span>
+                </div>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if exclusives_count == 0 %}
+          <div class="ai-bopis-collection__empty-state-{{ ai_gen_id }}">
+            No exclusive products available
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_discounted %}
+    <div class="ai-bopis-collection__group-{{ ai_gen_id }}">
+      <h2 class="ai-bopis-collection__heading-{{ ai_gen_id }}">
+        {{ block.settings.discounted_heading }}
+      </h2>
+      
+      <div class="ai-bopis-collection__grid-{{ ai_gen_id }}">
+        {% assign discounted_count = 0 %}
+        {% for product in collection.products %}
+          {% if product.compare_at_price > product.price %}
+            {% assign discounted_count = discounted_count | plus: 1 %}
+            <a href="{{ product.url }}" class="ai-bopis-collection__product-card-{{ ai_gen_id }}">
+              <div class="ai-bopis-collection__image-wrapper-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="ai-bopis-collection__image-{{ ai_gen_id }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {% else %}
+                  <div class="ai-bopis-collection__image-placeholder-{{ ai_gen_id }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.show_sale_badge %}
+                  <span class="ai-bopis-collection__sale-badge-{{ ai_gen_id }}">
+                    {{ block.settings.sale_badge_label }}
+                  </span>
+                {% endif %}
+              </div>
+              <h3 class="ai-bopis-collection__product-title-{{ ai_gen_id }}">
+                {{ product.title }}
+              </h3>
+              <div class="ai-bopis-collection__price-wrapper-{{ ai_gen_id }}">
+                <span class="ai-bopis-collection__price-{{ ai_gen_id }}">
+                  {{ product.price | money }}
+                </span>
+                <span class="ai-bopis-collection__compare-price-{{ ai_gen_id }}">
+                  {{ product.compare_at_price | money }}
+                </span>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+        
+        {% if discounted_count == 0 %}
+          <div class="ai-bopis-collection__empty-state-{{ ai_gen_id }}">
+            No discounted products available
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</bopis-collection-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BopisCollection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('bopis-collection-{{ ai_gen_id }}', BopisCollection{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "BOPIS collection grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Exclusives section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_exclusives",
+      "label": "Show exclusives section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "exclusives_heading",
+      "label": "Heading",
+      "default": "Exclusives"
+    },
+    {
+      "type": "header",
+      "content": "Discounted section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_discounted",
+      "label": "Show discounted section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "discounted_heading",
+      "label": "Heading",
+      "default": "On Sale"
+    },
+    {
+      "type": "header",
+      "content": "Heading style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Bottom spacing",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "heading_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Grid layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between products",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "group_spacing",
+      "label": "Space between groups",
+      "min": 24,
+      "max": 80,
+      "step": 8,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "Product card style"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "compare_price_size",
+      "label": "Compare price size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "Compare price color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Sale badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sale_badge_label",
+      "label": "Badge text",
+      "default": "Sale"
+    },
+    {
+      "type": "color",
+      "id": "sale_badge_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "sale_badge_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "sale_badge_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "BOPIS collection grid"
+    }
+  ]
+}
 {% endschema %}
