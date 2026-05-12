@@ -229,6 +229,15 @@
               </div>
             </volume-pricing>
           {%- endif -%}
+
+          {% if variant.price == 10000 %}
+            <div class="gift-card-notice-wrapper">
+              <div class="gift-card-notice">
+                🎁 This item is redeemable with your $100 gift card!
+              </div>
+            </div>
+          {%- endif -%}
+
           {%- unless block_settings.gift_card_form and product.gift_card? -%}
             <span
               class="product-form-text__error hidden"
@@ -790,6 +799,21 @@
     background-color: #f5f5f5;
     padding: 10px 20px;
     border-radius: 10px;
+  }
+
+  .gift-card-notice {
+    background-color: #fff8e1;
+    border: 1px solid #f5c518;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7a5c00;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 16px 0px;
   }
 {% endstylesheet %}
 
