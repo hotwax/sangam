@@ -1,6 +1,378 @@
+{% doc %}
+  @prompt
+    Create a "Gift Card Exclusive" toggle filter block for Shopify collection pages. When toggled ON, it filters the visible product grid to show only products tagged "Gift Card Exclusive". When toggled OFF, all products are shown. The toggle should sit inline with the existing horizontal filter bar. It should use vanilla JavaScript to filter products client-side by checking product tags. Style it to match the existing theme's filter pill/button style — clean, minimal, no extra libraries. It should work on the BOPIS, Pre-Order, and Ship From Store collection templates which all use the horizontal filters block.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-gift-card-filter-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-gift-card-filter__toggle-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: {{ block.settings.background_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    font-family: inherit;
+    user-select: none;
+  }
+
+  .ai-gift-card-filter__toggle-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.hover_background_color }};
+    border-color: {{ block.settings.hover_border_color }};
+    color: {{ block.settings.hover_text_color }};
+  }
+
+  .ai-gift-card-filter__toggle-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.active_background_color }};
+    border-color: {{ block.settings.active_border_color }};
+    color: {{ block.settings.active_text_color }};
+  }
+
+  .ai-gift-card-filter__toggle-{{ ai_gen_id }}.active:hover {
+    background-color: {{ block.settings.active_hover_background_color }};
+    border-color: {{ block.settings.active_hover_border_color }};
+    color: {{ block.settings.active_hover_text_color }};
+  }
+
+  .ai-gift-card-filter__checkbox-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .ai-gift-card-filter__checkmark-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+  }
+
+  .ai-gift-card-filter__toggle-{{ ai_gen_id }}.active .ai-gift-card-filter__checkmark-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .ai-gift-card-filter__label-{{ ai_gen_id }} {
+    font-weight: 500;
+  }
+
+  {% if block.settings.hide_products_without_tag %}
+    .product-grid-item:not([data-has-gift-card-tag="true"]) {
+      display: none !important;
+    }
+  {% endif %}
+{% endstyle %}
+
+<gift-card-filter-{{ ai_gen_id }}
+  class="ai-gift-card-filter-{{ ai_gen_id }}"
+  data-tag="{{ block.settings.filter_tag }}"
+  {{ block.shopify_attributes }}
+>
+  <button
+    type="button"
+    class="ai-gift-card-filter__toggle-{{ ai_gen_id }}"
+    aria-pressed="false"
+    role="switch"
+  >
+    <span class="ai-gift-card-filter__checkbox-{{ ai_gen_id }}">
+      <svg
+        class="ai-gift-card-filter__checkmark-{{ ai_gen_id }}"
+        viewBox="0 0 12 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10 3L4.5 8.5L2 6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+    <span class="ai-gift-card-filter__label-{{ ai_gen_id }}">{{ block.settings.label }}</span>
+  </button>
+</gift-card-filter-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class GiftCardFilter{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.toggle = this.querySelector('.ai-gift-card-filter__toggle-{{ ai_gen_id }}');
+        this.filterTag = this.dataset.tag;
+        this.isActive = false;
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+        this.initializeProductTags();
+      }
+
+      setupEventListeners() {
+        this.toggle.addEventListener('click', () => {
+          this.isActive = !this.isActive;
+          this.toggle.classList.toggle('active', this.isActive);
+          this.toggle.setAttribute('aria-pressed', this.isActive);
+          this.filterProducts();
+        });
+      }
+
+      initializeProductTags() {
+        const productCards = document.querySelectorAll('.product-grid-item, .card-wrapper, [data-product-id]');
+        
+        productCards.forEach((card) => {
+          const tagsElement = card.querySelector('[data-product-tags]');
+          if (tagsElement) {
+            const tags = tagsElement.dataset.productTags;
+            if (tags && tags.toLowerCase().includes(this.filterTag.toLowerCase())) {
+              card.setAttribute('data-has-gift-card-tag', 'true');
+            }
+          } else {
+            const productLink = card.querySelector('a[href*="/products/"]');
+            if (productLink) {
+              const productHandle = productLink.href.split('/products/')[1]?.split('?')[0];
+              if (productHandle) {
+                this.fetchProductTags(productHandle, card);
+              }
+            }
+          }
+        });
+      }
+
+      fetchProductTags(handle, card) {
+        fetch(`/products/${handle}.js`)
+          .then(response => response.json())
+          .then(product => {
+            if (product.tags && product.tags.some(tag => tag.toLowerCase() === this.filterTag.toLowerCase())) {
+              card.setAttribute('data-has-gift-card-tag', 'true');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching product tags:', error);
+          });
+      }
+
+      filterProducts() {
+        const productCards = document.querySelectorAll('.product-grid-item, .card-wrapper, [data-product-id]');
+        
+        productCards.forEach((card) => {
+          const hasTag = card.getAttribute('data-has-gift-card-tag') === 'true';
+          
+          if (this.isActive) {
+            if (hasTag) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          } else {
+            card.style.display = '';
+          }
+        });
+
+        this.updateEmptyState();
+      }
+
+      updateEmptyState() {
+        const productGrid = document.querySelector('.product-grid, .collection-grid, [data-product-grid]');
+        if (!productGrid) return;
+
+        const visibleProducts = Array.from(productGrid.querySelectorAll('.product-grid-item, .card-wrapper, [data-product-id]')).filter(card => card.style.display !== 'none');
+
+        let emptyState = productGrid.querySelector('.ai-gift-card-empty-state-{{ ai_gen_id }}');
+
+        if (this.isActive && visibleProducts.length === 0) {
+          if (!emptyState) {
+            emptyState = document.createElement('div');
+            emptyState.className = 'ai-gift-card-empty-state-{{ ai_gen_id }}';
+            emptyState.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #666;';
+            emptyState.innerHTML = '<p>No products found with the "{{ block.settings.filter_tag }}" tag.</p>';
+            productGrid.appendChild(emptyState);
+          }
+        } else {
+          if (emptyState) {
+            emptyState.remove();
+          }
+        }
+      }
+    }
+
+    customElements.define('gift-card-filter-{{ ai_gen_id }}', GiftCardFilter{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Gift card filter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Filter settings"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Toggle label",
+      "default": "Gift Card Exclusive"
+    },
+    {
+      "type": "text",
+      "id": "filter_tag",
+      "label": "Product tag to filter",
+      "default": "Gift Card Exclusive",
+      "info": "Products with this tag will be shown when the toggle is active"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_products_without_tag",
+      "label": "Hide non-tagged products by default",
+      "default": false,
+      "info": "If enabled, only products with the tag will be visible on page load"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Default state colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#00000021"
+    },
+    {
+      "type": "header",
+      "content": "Hover state colors"
+    },
+    {
+      "type": "color",
+      "id": "hover_background_color",
+      "label": "Background",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "hover_border_color",
+      "label": "Border",
+      "default": "#E6E6E6"
+    },
+    {
+      "type": "header",
+      "content": "Active state colors"
+    },
+    {
+      "type": "color",
+      "id": "active_background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "active_border_color",
+      "label": "Border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Active hover state colors"
+    },
+    {
+      "type": "color",
+      "id": "active_hover_background_color",
+      "label": "Background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "active_hover_text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "active_hover_border_color",
+      "label": "Border",
+      "default": "#1A1A1A"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift card filter"
+    }
+  ]
+}
 {% endschema %}
