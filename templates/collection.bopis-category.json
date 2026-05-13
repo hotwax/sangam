@@ -205,6 +205,28 @@
     "main": {
       "type": "main-collection",
       "blocks": {
+        "gift_card_filter_Ye7naL": {
+          "type": "gift-card-filter",
+          "name": "Gift Card Filter",
+          "settings": {
+            "label": "Gift Card Exclusive",
+            "filter_tag": "Gift Card Exclusive",
+            "font_size": 14,
+            "border_radius": 14,
+            "border_width": 1,
+            "background_color": "#ffffff",
+            "text_color": "#000000",
+            "border_color": "#00000021",
+            "hover_background_color": "#f5f5f5",
+            "hover_border_color": "#e6e6e6",
+            "active_background_color": "#000000",
+            "active_text_color": "#ffffff",
+            "active_border_color": "#000000",
+            "active_hover_background_color": "#1a1a1a",
+            "active_hover_border_color": "#1a1a1a"
+          },
+          "blocks": {}
+        },
         "filters": {
           "type": "filters",
           "static": true,
@@ -315,6 +337,9 @@
           ]
         }
       },
+      "block_order": [
+        "gift_card_filter_Ye7naL"
+      ],
       "name": "BOPIS collection",
       "settings": {
         "layout_type": "grid",
