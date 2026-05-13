@@ -1,7 +1,3 @@
-{% doc %}
-  @prompt
-    Create a "Gift Card Exclusive" toggle filter block for Shopify collection pages. When toggled ON, it filters the visible product grid to show only products tagged "Gift Card Exclusive". When toggled OFF, all products are shown. The toggle should sit inline with the existing horizontal filter bar. It should use vanilla JavaScript to filter products client-side by checking product tags. Style it to match the existing theme's filter pill/button style — clean, minimal, no extra libraries. It should work on the BOPIS, Pre-Order, and Ship From Store collection templates which all use the horizontal filters block.
-{% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
@@ -71,6 +67,11 @@
     font-weight: 500;
   }
 
+  .ai-gift-card-filter__count-{{ ai_gen_id }} {
+    opacity: 0.7;
+    font-size: 0.9em;
+  }
+
   @media screen and (max-width: 749px) {
     .ai-gift-card-filter__toggle-{{ ai_gen_id }} {
       font-size: {{ block.settings.font_size | times: 0.9 }}px;
@@ -88,7 +89,7 @@
     type="button"
     class="ai-gift-card-filter__toggle-{{ ai_gen_id }}"
     aria-pressed="false"
-    aria-label="Filter by {{ block.settings.label }}"
+    data-filter-toggle
   >
     <span class="ai-gift-card-filter__checkbox-{{ ai_gen_id }}">
       <svg
@@ -107,6 +108,7 @@
       </svg>
     </span>
     <span class="ai-gift-card-filter__label-{{ ai_gen_id }}">{{ block.settings.label }}</span>
+    <span class="ai-gift-card-filter__count-{{ ai_gen_id }}" data-count></span>
   </button>
 </gift-card-filter-{{ ai_gen_id }}>
 
@@ -115,15 +117,54 @@
     class GiftCardFilter{{ ai_gen_id }} extends HTMLElement {
       constructor() {
         super();
-        this.toggle = this.querySelector('.ai-gift-card-filter__toggle-{{ ai_gen_id }}');
         this.filterTag = this.dataset.tag;
+        this.toggle = this.querySelector('[data-filter-toggle]');
+        this.countElement = this.querySelector('[data-count]');
         this.isActive = false;
-        this.productCards = [];
+        this.allProducts = [];
+        this.filteredProducts = [];
       }
 
       connectedCallback() {
+        this.collectProducts();
+        this.updateCount();
         this.setupEventListeners();
-        this.findProductCards();
+      }
+
+      collectProducts() {
+        const productGrid = document.querySelector('.collection .grid, .collection-grid, [data-collection-products], .product-grid');
+        
+        if (!productGrid) {
+          return;
+        }
+
+        const productCards = productGrid.querySelectorAll('.card-wrapper, .product-card-wrapper, [data-product-card]');
+        
+        this.allProducts = Array.from(productCards).map(card => {
+          const tagsElement = card.querySelector('[data-product-tags]');
+          let tags = [];
+          
+          if (tagsElement) {
+            const tagsContent = tagsElement.textContent || tagsElement.dataset.productTags || '';
+            tags = tagsContent.split(',').map(tag => tag.trim().toLowerCase());
+          }
+          
+          return {
+            element: card,
+            tags: tags,
+            hasFilterTag: tags.includes(this.filterTag.toLowerCase())
+          };
+        });
+
+        this.filteredProducts = this.allProducts.filter(p => p.hasFilterTag);
+      }
+
+      updateCount() {
+        if (this.filteredProducts.length > 0) {
+          this.countElement.textContent = `(${this.filteredProducts.length})`;
+        } else {
+          this.countElement.textContent = '';
+        }
       }
 
       setupEventListeners() {
@@ -131,74 +172,50 @@
           this.isActive = !this.isActive;
           this.toggle.classList.toggle('active', this.isActive);
           this.toggle.setAttribute('aria-pressed', this.isActive);
-          this.filterProducts();
+          this.applyFilter();
         });
       }
 
-      findProductCards() {
-        const productGrid = document.querySelector('.collection-product-grid, .product-grid, [id*="product-grid"]');
-        if (productGrid) {
-          this.productCards = Array.from(productGrid.querySelectorAll('.card-wrapper, .product-card-wrapper, [class*="product-card"]'));
-        }
-      }
-
-      filterProducts() {
-        if (this.productCards.length === 0) {
-          this.findProductCards();
-        }
-
-        this.productCards.forEach(card => {
-          const productLink = card.querySelector('a[href*="/products/"]');
-          if (!productLink) return;
-
-          const productHandle = productLink.href.split('/products/')[1]?.split('?')[0];
-          if (!productHandle) return;
-
-          const tagsElement = card.querySelector('[data-product-tags]');
-          let productTags = [];
-
-          if (tagsElement) {
-            const tagsData = tagsElement.dataset.productTags;
-            productTags = tagsData ? tagsData.split(',').map(tag => tag.trim().toLowerCase()) : [];
-          }
-
-          const hasTag = productTags.includes(this.filterTag.toLowerCase());
-
-          if (this.isActive) {
-            if (hasTag) {
-              card.style.display = '';
-              card.removeAttribute('hidden');
+      applyFilter() {
+        if (this.isActive) {
+          this.allProducts.forEach(product => {
+            if (product.hasFilterTag) {
+              product.element.style.display = '';
+              product.element.style.opacity = '1';
             } else {
-              card.style.display = 'none';
-              card.setAttribute('hidden', '');
+              product.element.style.display = 'none';
+              product.element.style.opacity = '0';
             }
-          } else {
-            card.style.display = '';
-            card.removeAttribute('hidden');
-          }
-        });
+          });
+        } else {
+          this.allProducts.forEach(product => {
+            product.element.style.display = '';
+            product.element.style.opacity = '1';
+          });
+        }
 
         this.updateProductCount();
       }
 
       updateProductCount() {
-        const countElement = document.querySelector('.collection-product-count, [class*="product-count"]');
-        if (countElement && this.isActive) {
-          const visibleCount = this.productCards.filter(card => card.style.display !== 'none').length;
-          const countText = countElement.textContent;
+        const productCountElement = document.querySelector('.collection-product-count, [data-product-count], .product-count');
+        
+        if (productCountElement) {
+          const visibleCount = this.isActive ? this.filteredProducts.length : this.allProducts.length;
+          const countText = productCountElement.textContent;
           const newCountText = countText.replace(/\d+/, visibleCount);
-          countElement.textContent = newCountText;
+          productCountElement.textContent = newCountText;
         }
       }
     }
 
-    customElements.define('gift-card-filter-{{ ai_gen_id }}', GiftCardFilter{{ ai_gen_id }});
+      customElements.define('gift-card-filter-{{ ai_gen_id }}', GiftCardFilter{{ ai_gen_id }});
   })();
 </script>
 
 {% schema %}
 {
-  "name": "Gift card filter",
+  "name": "Gift Card Filter",
   "settings": [
     {
       "type": "header",
@@ -274,15 +291,19 @@
       "default": "#00000021"
     },
     {
+      "type": "header",
+      "content": "Hover state colors"
+    },
+    {
       "type": "color",
       "id": "hover_background_color",
-      "label": "Hover background",
+      "label": "Background",
       "default": "#f5f5f5"
     },
     {
       "type": "color",
       "id": "hover_border_color",
-      "label": "Hover border",
+      "label": "Border",
       "default": "#e6e6e6"
     },
     {
@@ -308,23 +329,26 @@
       "default": "#000000"
     },
     {
+      "type": "header",
+      "content": "Active hover state colors"
+    },
+    {
       "type": "color",
       "id": "active_hover_background_color",
-      "label": "Hover background",
+      "label": "Background",
       "default": "#1a1a1a"
     },
     {
       "type": "color",
       "id": "active_hover_border_color",
-      "label": "Hover border",
+      "label": "Border",
       "default": "#1a1a1a"
     }
   ],
   "presets": [
     {
-      "name": "Gift card filter"
+      "name": "Gift Card Filter"
     }
-  ],
-  "tag": null
+  ]
 }
 {% endschema %}
