@@ -1,0 +1,85 @@
+{% assign filter_id = 'custom_' | append: section_id | replace: '_', '' | downcase %}
+{% assign is_active = false %}
+{% for filter in results.filters %}
+  {% if filter.param_name == block_settings.gift_card_filter_param_name %}
+    {% if filter.active_values.size > 0 %}
+      {% assign is_active = true %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% style %}
+  .gift-card-filter-{{ filter_id }} {
+    display: inline-block;
+  }
+
+  .gift-card-filter__toggle-{{ filter_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: {{ block_settings.gift_card_background_color }};
+    border: {{ block_settings.gift_card_border_width }}px solid {{ block_settings.gift_card_border_color }};
+    border-radius: {{ block_settings.gift_card_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: {{ block_settings.gift_card_font_size }}px;
+    color: {{ block_settings.gift_card_text_color }};
+    font-family: inherit;
+    user-select: none;
+    margin: 0; /* Reset label margins */
+  }
+
+  .gift-card-filter__toggle-{{ filter_id }}:hover {
+    background-color: {{ block_settings.gift_card_hover_background_color }};
+    border-color: {{ block_settings.gift_card_hover_border_color }};
+  }
+
+  /* When checkbox is checked, style the label as active */
+  .gift-card-filter__toggle-{{ filter_id }}:has(.gift-card-filter__input-{{ filter_id }}:checked) {
+    background-color: {{ block_settings.gift_card_active_background_color }};
+    color: {{ block_settings.gift_card_active_text_color }};
+    border-color: {{ block_settings.gift_card_active_border_color }};
+  }
+
+  .gift-card-filter__toggle-{{ filter_id }}:has(.gift-card-filter__input-{{ filter_id }}:checked):hover {
+    background-color: {{ block_settings.gift_card_active_hover_background_color }};
+    border-color: {{ block_settings.gift_card_active_hover_border_color }};
+  }
+
+  .gift-card-filter__input-{{ filter_id }} {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: {{ block_settings.gift_card_active_text_color }};
+  }
+
+  .gift-card-filter__label-{{ filter_id }} {
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 749px) {
+    .gift-card-filter__toggle-{{ filter_id }} {
+      font-size: {{ block_settings.gift_card_font_size | times: 0.9 }}px;
+      padding: 8px 14px;
+    }
+  }
+{% endstyle %}
+
+<facet-inputs-component class="gift-card-filter-{{ filter_id }} facets__item" on:change="/updateFilters">
+  <label for="Filter-GiftCard-{{ filter_id }}" class="gift-card-filter__toggle-{{ filter_id }}">
+    <input
+      type="checkbox"
+      name="{{ block_settings.gift_card_filter_param_name }}"
+      value="{{ block_settings.gift_card_filter_value | escape }}"
+      id="Filter-GiftCard-{{ filter_id }}"
+      class="gift-card-filter__input-{{ filter_id }}"
+      {% if is_active %}
+        checked
+      {% endif %}
+      ref="facetInputs[]"
+    >
+    <span class="gift-card-filter__label-{{ filter_id }}">{{ block_settings.gift_card_filter_label }}</span>
+  </label>
+</facet-inputs-component>

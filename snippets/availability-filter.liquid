@@ -1,0 +1,85 @@
+{% assign filter_id = 'avail_' | append: section_id | replace: '_', '' | downcase %}
+{% assign is_active = false %}
+{% for filter in results.filters %}
+  {% if filter.param_name == block_settings.availability_filter_param_name %}
+    {% if filter.active_values.size > 0 %}
+      {% assign is_active = true %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% style %}
+  .availability-filter-{{ filter_id }} {
+    display: inline-block;
+  }
+
+  .availability-filter__toggle-{{ filter_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: {{ block_settings.availability_background_color }};
+    border: {{ block_settings.availability_border_width }}px solid {{ block_settings.availability_border_color }};
+    border-radius: {{ block_settings.availability_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: {{ block_settings.availability_font_size }}px;
+    color: {{ block_settings.availability_text_color }};
+    font-family: inherit;
+    user-select: none;
+    margin: 0; /* Reset label margins */
+  }
+
+  .availability-filter__toggle-{{ filter_id }}:hover {
+    background-color: {{ block_settings.availability_hover_background_color }};
+    border-color: {{ block_settings.availability_hover_border_color }};
+  }
+
+  /* When checkbox is checked, style the label as active */
+  .availability-filter__toggle-{{ filter_id }}:has(.availability-filter__input-{{ filter_id }}:checked) {
+    background-color: {{ block_settings.availability_active_background_color }};
+    color: {{ block_settings.availability_active_text_color }};
+    border-color: {{ block_settings.availability_active_border_color }};
+  }
+
+  .availability-filter__toggle-{{ filter_id }}:has(.availability-filter__input-{{ filter_id }}:checked):hover {
+    background-color: {{ block_settings.availability_active_hover_background_color }};
+    border-color: {{ block_settings.availability_active_hover_border_color }};
+  }
+
+  .availability-filter__input-{{ filter_id }} {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: {{ block_settings.availability_active_text_color }};
+  }
+
+  .availability-filter__label-{{ filter_id }} {
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 749px) {
+    .availability-filter__toggle-{{ filter_id }} {
+      font-size: {{ block_settings.availability_font_size | times: 0.9 }}px;
+      padding: 8px 14px;
+    }
+  }
+{% endstyle %}
+
+<facet-inputs-component class="availability-filter-{{ filter_id }} facets__item" on:change="/updateFilters">
+  <label for="Filter-Availability-{{ filter_id }}" class="availability-filter__toggle-{{ filter_id }}">
+    <input
+      type="checkbox"
+      name="{{ block_settings.availability_filter_param_name }}"
+      value="{{ block_settings.availability_filter_value | escape }}"
+      id="Filter-Availability-{{ filter_id }}"
+      class="availability-filter__input-{{ filter_id }}"
+      {% if is_active %}
+        checked
+      {% endif %}
+      ref="facetInputs[]"
+    >
+    <span class="availability-filter__label-{{ filter_id }}">{{ block_settings.availability_filter_label }}</span>
+  </label>
+</facet-inputs-component>
