@@ -1,4 +1,3 @@
-
 {%- doc -%}
   Renders the facet filtering component
 
@@ -190,6 +189,14 @@
 
                         assign active_value_count = filter.active_values | size
                         assign total_active_values = total_active_values | plus: active_value_count
+                      %}
+                      {% if block_settings.enable_custom_gift_card_filter and filter.param_name == block_settings.gift_card_filter_param_name %}
+                        {% continue %}
+                      {% endif %}
+                      {% if block_settings.enable_custom_availability_filter and filter.param_name == block_settings.availability_filter_param_name %}
+                        {% continue %}
+                      {% endif %}
+                      {% liquid
                         if block_settings.filter_style != 'vertical'
                           assign should_render_clear = true
                         else
@@ -199,6 +206,14 @@
                       %}
                   {% endcase %}
                 {%- endfor -%}
+
+                {% if block_settings.enable_custom_gift_card_filter %}
+                  {% render 'gift-card-filter', block_settings: block_settings, section_id: section.id, results: results %}
+                {% endif %}
+
+                {% if block_settings.enable_custom_availability_filter %}
+                  {% render 'availability-filter', block_settings: block_settings, section_id: section.id, results: results %}
+                {% endif %}
               {% endcapture %}
 
               <div class="facets__filters-wrapper">
@@ -451,10 +466,38 @@
 
                         assign active_value_count = filter.active_values | size
                         assign total_active_values = total_active_values | plus: active_value_count
+                      %}
+                      {% if block_settings.enable_custom_gift_card_filter
+                        and filter.param_name == block_settings.gift_card_filter_param_name
+                      %}
+                        {% continue %}
+                      {% endif %}
+                      {% if block_settings.enable_custom_availability_filter
+                        and filter.param_name == block_settings.availability_filter_param_name
+                      %}
+                        {% continue %}
+                      {% endif %}
+                      {% liquid
                         render 'list-filter', filter: filter, filter_style: 'vertical', active_value_count: active_value_count, should_render_clear: false, in_drawer: true, sectionId: section.id
                       %}
                   {% endcase %}
                 {%- endfor -%}
+
+                {% if block_settings.enable_custom_gift_card_filter %}
+                  {% render 'gift-card-filter',
+                    block_settings: block_settings,
+                    section_id: section.id,
+                    results: results
+                  %}
+                {% endif %}
+
+                {% if block_settings.enable_custom_availability_filter %}
+                  {% render 'availability-filter',
+                    block_settings: block_settings,
+                    section_id: section.id,
+                    results: results
+                  %}
+                {% endif %}
               </div>
             {% endif %}
 
@@ -1409,6 +1452,246 @@
       "label": "t:settings.color_scheme",
       "default": "scheme-1",
       "visible_if": "{{ block.settings.inherit_color_scheme == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Custom Gift Card Filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_gift_card_filter",
+      "label": "Enable Custom Gift Card Filter",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "gift_card_filter_label",
+      "label": "Filter label",
+      "default": "Gift Card Exclusive"
+    },
+    {
+      "type": "text",
+      "id": "gift_card_filter_param_name",
+      "label": "Filter parameter name",
+      "default": "filter.p.m.custom.exclusive",
+      "info": "The native Shopify facet parameter (e.g. filter.p.m.custom.exclusive or filter.p.product_type). Must be configured in Search & Discovery app."
+    },
+    {
+      "type": "text",
+      "id": "gift_card_filter_value",
+      "label": "Filter value",
+      "default": "1",
+      "info": "The value to filter by when active (1 for Yes/True)"
+    },
+    {
+      "type": "range",
+      "id": "gift_card_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "gift_card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "gift_card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "gift_card_background_color",
+      "label": "Default Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_text_color",
+      "label": "Default Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_border_color",
+      "label": "Default Border",
+      "default": "#00000021"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_hover_background_color",
+      "label": "Hover Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_hover_border_color",
+      "label": "Hover Border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_active_background_color",
+      "label": "Active Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_active_text_color",
+      "label": "Active Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_active_border_color",
+      "label": "Active Border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_active_hover_background_color",
+      "label": "Active Hover Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "gift_card_active_hover_border_color",
+      "label": "Active Hover Border",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Custom Availability Filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_availability_filter",
+      "label": "Enable Custom Availability Filter",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "availability_filter_label",
+      "label": "Filter label",
+      "default": "In Stock"
+    },
+    {
+      "type": "text",
+      "id": "availability_filter_param_name",
+      "label": "Filter parameter name",
+      "default": "filter.v.availability",
+      "info": "The native Shopify facet parameter (e.g. filter.v.availability)."
+    },
+    {
+      "type": "text",
+      "id": "availability_filter_value",
+      "label": "Filter value",
+      "default": "1",
+      "info": "The value to filter by when active (1 for in stock)."
+    },
+    {
+      "type": "range",
+      "id": "availability_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "availability_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "availability_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "availability_background_color",
+      "label": "Default Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "availability_text_color",
+      "label": "Default Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "availability_border_color",
+      "label": "Default Border",
+      "default": "#00000021"
+    },
+    {
+      "type": "color",
+      "id": "availability_hover_background_color",
+      "label": "Hover Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "availability_hover_border_color",
+      "label": "Hover Border",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_background_color",
+      "label": "Active Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_text_color",
+      "label": "Active Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_border_color",
+      "label": "Active Border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_hover_background_color",
+      "label": "Active Hover Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "availability_active_hover_border_color",
+      "label": "Active Hover Border",
+      "default": "#1a1a1a"
     },
     {
       "type": "header",
