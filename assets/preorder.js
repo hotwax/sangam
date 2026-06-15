@@ -209,6 +209,12 @@
             quantityField.val(1);
         }
 
+        let canUpdateQuantityProperty = jQueryPreOrder(
+            `<input name="properties[item.instructions.can_update_quantity]" value="false" type="hidden"/>`
+        );
+
+        addToCartForm.append(canUpdateQuantityProperty);
+
         // using the cart add endpoint to add the product to cart, as using the theme specific methods is not recommended.
         jQueryPreOrder.ajax({
             type: "POST",
