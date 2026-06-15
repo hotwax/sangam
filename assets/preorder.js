@@ -205,11 +205,7 @@
         if (estimatedDeliveryDate && estimatedDeliveryDate !== 'NULL' && estimatedDeliveryDate !== '_NA_') addToCartForm.append(estimatedDeliveryDateProperty)
 
         const quantityField = addToCartForm.find('[name="quantity"]');
-        if (quantityField.length) {
-            quantityField.val(1);
-        }
-
-        addToCartForm.append(canUpdateQuantityProperty);
+        if (quantityField.length) quantityField.val(1);
 
         // using the cart add endpoint to add the product to cart, as using the theme specific methods is not recommended.
         jQueryPreOrder.ajax({
