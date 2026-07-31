@@ -74,12 +74,16 @@
     async function initialisePreOrder () {
         if (location.pathname.includes('/products/')) {
 
+            console.log('preorder started')
+
             let hcpreorderShipsFrom = jQueryPreOrder("#hc_preordershipsfrom");
             let span = jQueryPreOrder("#hc_preordershipsfrom span");
 
             jQueryPreOrder(".hc-product-form").each(async function (i, form) {
             const cartForm = jQueryPreOrder(form)
             const currentVariantId = cartForm.serializeArray().find(ele => ele.name === "id").value;
+
+            console.log('currentVariantId', currentVariantId)
 
             const preorderButton = jQueryPreOrder(".hc_preorderButton");
 
