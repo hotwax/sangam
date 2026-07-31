@@ -8,8 +8,10 @@
     };
 
     function getAddToCartLabel () {
+        console.log('add to card')
         if (location.pathname.includes('/products/')) {
             const addToCartButton = jQueryPreOrder(".hc_preorderButton")
+            console.log('button', addToCartButton)
             addToCartLabel = addToCartButton.find('.add-to-cart-text__content > span > span').text();
         }
     }
@@ -38,6 +40,7 @@
     };
 
     if ((typeof jQuery === 'undefined') || (parseFloat(jQuery.fn['jquery']) < 1.7)) {
+        console.log('loading jquery')
         loadScript('//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', function(){
             jQueryPreOrder = jQuery.noConflict(true);
             jQueryPreOrder(document).ready(function() {
