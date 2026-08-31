@@ -78,7 +78,7 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
-    "home_store_event_locations": "NRF,SHOPTALK_SPRING,ETAIL_PALM_SPRING,COMMERCE_NEXT",
+    "home_store_event_locations": "SHOPTALK_FALL,NRF,SHOPTALK_SPRING,ETAIL_PALM_SPRING,COMMERCE_NEXT",
     "sample_zipcodes": "89119:Nearby store, 03051:Nearby warehouse",
     "sample_zipcodes_title": "Sample zipcode",
     "content_for_index": [],
