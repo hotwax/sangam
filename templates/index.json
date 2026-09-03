@@ -568,13 +568,29 @@
             "padding-inline-end": 10
           },
           "blocks": {
-            "icon_EU39M4": {
-              "type": "icon",
+            "text_aQxdjT": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "icon": "heart",
-                "width": 18,
-                "link": "",
-                "open_in_new_tab": false
+                "text": "<p><strong>1</strong></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": true,
+                "background_color": "#FFFFFF",
+                "corner_radius": 6,
+                "padding-block-start": 14,
+                "padding-block-end": 14,
+                "padding-inline-start": 14,
+                "padding-inline-end": 14
               },
               "blocks": {}
             },
@@ -676,7 +692,7 @@
             }
           },
           "block_order": [
-            "icon_EU39M4",
+            "text_aQxdjT",
             "group_dmQDHz"
           ]
         },
@@ -720,13 +736,29 @@
             "padding-inline-end": 10
           },
           "blocks": {
-            "icon_jbTxPc": {
-              "type": "icon",
+            "text_et7F37": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "icon": "lightning_bolt",
-                "width": 18,
-                "link": "",
-                "open_in_new_tab": false
+                "text": "<p><strong>2</strong></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": true,
+                "background_color": "#ffffff",
+                "corner_radius": 6,
+                "padding-block-start": 14,
+                "padding-block-end": 14,
+                "padding-inline-start": 14,
+                "padding-inline-end": 14
               },
               "blocks": {}
             },
@@ -828,7 +860,7 @@
             }
           },
           "block_order": [
-            "icon_jbTxPc",
+            "text_et7F37",
             "group_X9cdtQ"
           ]
         },
@@ -872,13 +904,29 @@
             "padding-inline-end": 10
           },
           "blocks": {
-            "icon_4YdnJf": {
-              "type": "icon",
+            "text_rfAAbe": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "icon": "check_box",
-                "width": 18,
-                "link": "",
-                "open_in_new_tab": false
+                "text": "<p><strong>3</strong></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": true,
+                "background_color": "#ffffff",
+                "corner_radius": 6,
+                "padding-block-start": 14,
+                "padding-block-end": 14,
+                "padding-inline-start": 14,
+                "padding-inline-end": 14
               },
               "blocks": {}
             },
@@ -980,7 +1028,7 @@
             }
           },
           "block_order": [
-            "icon_4YdnJf",
+            "text_rfAAbe",
             "group_h3etV3"
           ]
         },
@@ -1024,13 +1072,29 @@
             "padding-inline-end": 10
           },
           "blocks": {
-            "icon_8NtHET": {
-              "type": "icon",
+            "text_pFkyPy": {
+              "type": "text",
+              "name": "t:names.text",
               "settings": {
-                "icon": "silhouette",
-                "width": 18,
-                "link": "",
-                "open_in_new_tab": false
+                "text": "<p><strong>4</strong></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": true,
+                "background_color": "#ffffff",
+                "corner_radius": 6,
+                "padding-block-start": 14,
+                "padding-block-end": 14,
+                "padding-inline-start": 14,
+                "padding-inline-end": 14
               },
               "blocks": {}
             },
@@ -1132,7 +1196,7 @@
             }
           },
           "block_order": [
-            "icon_8NtHET",
+            "text_pFkyPy",
             "group_7ryhfJ"
           ]
         }
@@ -1839,32 +1903,6 @@
     },
     "177857651737a8be68": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_cab87a7_b3KRgd": {
-          "type": "ai_gen_block_cab87a7",
-          "settings": {
-            "label": "Gift Card Exclusive",
-            "filter_tag": "Gift Card Exclusive",
-            "font_size": 14,
-            "border_radius": 14,
-            "border_width": 1,
-            "background_color": "#ffffff",
-            "text_color": "#000000",
-            "border_color": "#00000021",
-            "hover_background_color": "#f5f5f5",
-            "hover_border_color": "#e6e6e6",
-            "active_background_color": "#000000",
-            "active_text_color": "#ffffff",
-            "active_border_color": "#000000",
-            "active_hover_background_color": "#1a1a1a",
-            "active_hover_border_color": "#1a1a1a"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_cab87a7_b3KRgd"
-      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
