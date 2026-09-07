@@ -22,7 +22,7 @@
         'enableCartRedirection': true,
         'searchProximity': 50, // the radius (in miles) in which the stores needs to be searched
         'searchInputPlaceholder': 'Search by zip code (50 mile radius)',
-        'shippingMethods': ['Standard', '2 day', 'Overnight'],
+        'shippingMethods': ['Standard', 'Two Day', 'Next Day'],
         'enableUpdatingFulfillmentLocation': false,
         'eventLocations': getLocations(),
         'sampleZipCodes': getSampleZipCodes(),
@@ -220,7 +220,7 @@
             if (storeDistance < 300) days += 2;
             else if (storeDistance < 600) days += 3;
             else if (storeDistance > 600) days += 5;
-        } else if (method === '2 day') {
+        } else if (method === 'Two Day') {
             timeRemaining += hour < 12 ? `${11 - hour} hrs` : '';
             timeRemaining += hour < 12 && minute <= 59 ? ` ${59 - minute} mins` : '';
         }
@@ -249,8 +249,8 @@
         date.setHours(date.getHours() + hours);
         date.setDate(date.getDate() + days);
 
-        if (method === '2 day') date.setDate(date.getDate() + 2);
-        else if (method === 'Overnight') date.setDate(date.getDate() + 1);
+        if (method === 'Two Day') date.setDate(date.getDate() + 2);
+        else if (method === 'Next Day') date.setDate(date.getDate() + 1);
 
         // Add 1 day to the estimated date as Delivery is not done on Sunday for any Shipping option
         // Add 2 day to the estimated date as Delivery is not done on Saturday for any Shipping option
