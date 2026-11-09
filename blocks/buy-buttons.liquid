@@ -267,7 +267,7 @@
         {% comment %}
         HC: Added a div with id hc-bopis-button and product information
         {% endcomment %}
-        {% capture 'hc_product_information' %}
+        {% capture hc_product_information %}
           {% for variant in product.variants %}
             "{{ variant.id | json }}": { "sku": "{{ variant.sku }}", "inventory": {{ variant.inventory_quantity | json }}, "inventory_policy": {{ variant.inventory_policy | json }} }
             {% unless forloop.last %},{% endunless %}
@@ -918,3 +918,13 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% capture 'hc_product_information' %}"
+  to: "{% capture hc_product_information %}"
+  position: 10977..11013
+{% endcomment %}
